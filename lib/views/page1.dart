@@ -159,7 +159,7 @@ class _Page1State extends State<Page1> {
 }
 
 Future<dynamic> Getdata() async {
-  Uri url = Uri.parse('http://192.168.1.53:3000/api/mentor');
+  Uri url = Uri.parse('http://192.168.1.36:3000/api/mentor');
   return await http
       .get(
     url,

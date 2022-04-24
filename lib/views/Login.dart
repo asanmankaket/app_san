@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter_appcare/configs/config.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -204,7 +205,9 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 Future CheckLogin(String username, String password, context) async {
-  Uri url = Uri.parse('http://192.168.1.53:3000/api/customer/login');
+  EasyLoading.show(status: 'loading...');
+
+  Uri url = Uri.parse('http://192.168.1.36:3000/api/customer/login');
   http
       .post(
     url,
@@ -217,10 +220,12 @@ Future CheckLogin(String username, String password, context) async {
       var data = jsonDecode(req.body);
       prefs.setString('token', data['token']);
       headers?['Authorization'] = "bearer ${data['token']}";
+      EasyLoading.showSuccess('Great Success!');
       Navigator.pushNamedAndRemoveUntil(
           context, "/Page1", (Route<dynamic> route) => false);
     } else {
       print('error');
+      EasyLoading.showError('Failed with Error');
     }
   });
 }

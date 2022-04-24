@@ -88,7 +88,7 @@ class _SideMenuState extends State<SideMenu> {
                   Icon(Icons.house),
                   //แก้ตรงนี้--------------------------------------------------------------------------------------
                   'หน้าแรก',
-                  '/page1',
+                  '/Page1',
                 ),
                 routeItem(
                   context,
@@ -99,10 +99,10 @@ class _SideMenuState extends State<SideMenu> {
                 ),
                 routeItem(
                   context,
-                  Icon(Icons.house),
+                  Icon(Icons.map),
                   //แก้ตรงนี้--------------------------------------------------------------------------------------
-                  'หน้าแรก',
-                  '/page1',
+                  'Map',
+                  '/Map',
                 ),
               ],
             ),
