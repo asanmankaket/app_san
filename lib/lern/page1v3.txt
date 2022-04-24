@@ -1,0 +1,99 @@
+// import 'package:flutter/material.dart';
+
+// class Page1 extends StatefulWidget {
+//   Page1({Key? key}) : super(key: key);
+
+//   @override
+//   State<Page1> createState() => _Page1State();
+// }
+
+// class _Page1State extends State<Page1> {
+//   TextEditingController username = TextEditingController();
+
+//   List<Map<String, String>> item = [
+//     {
+//       'title': 'นาย',
+//       'fname': 'นัท',
+//       'lname': 'มั้ง',
+//       'phone': '0897897979',
+//       'image': 'eqweqweqwf'
+//     },
+//     {
+//       'title': 'นาย',
+//       'fname': 'อาซาน',
+//       'lname': 'มรรคาเขต',
+//       'phone': '0897897979',
+//       'image': 'eqweqweqwf'
+//     },
+//     {
+//       'title': 'นาย',
+//       'fname': 'สองแสน',
+//       'lname': 'รามคำแหง',
+//       'phone': '0897897979',
+//       'image': 'eqweqweqwf'
+//     },
+//     {
+//       'title': 'นาย',
+//       'fname': 'อำเภอ',
+//       'lname': 'สงขลา',
+//       'phone': '0897897979',
+//       'image': 'eqweqweqwf'
+//     }
+//   ];
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Color.fromARGB(255, 227, 227, 227),
+//       appBar: AppBar(
+//         title: Text('Page1'),
+//         backgroundColor: Color.fromARGB(255, 45, 134, 156),
+//       ),
+//       body: SizedBox(
+//           width: MediaQuery.of(context).size.width,
+//           child: ListView.builder(
+//             itemCount: item.length,
+//             itemBuilder: (context, i) => Card(
+//               elevation: 10,
+//               color: Color.fromARGB(255, 150, 217, 234),
+//               shadowColor: Color.fromARGB(255, 10, 91, 111),
+//               child: SizedBox(
+//                 width: double.maxFinite,
+//                 height: 100,
+//                 child: Container(
+//                   padding: EdgeInsets.all(5),
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Container(
+//                         child: CircleAvatar(
+//                           backgroundColor: Colors.blue,
+//                           foregroundColor: Colors.blue,
+//                           backgroundImage: NetworkImage(
+//                               "https://obs.line-scdn.net/0ho7Hx9FjJMBh1ARpkc9xPT09XM3dGbSMbETdhGylvbiwKMSRPGm4vLVlVO3oNOXdGG297dlEAKylQNXFMSmEv/w644"),
+//                         ),
+//                       ),
+//                       Text(
+//                         'title : ${item[i]['title']}',
+//                         style: TextStyle(fontSize: 15),
+//                       ),
+//                       Text(
+//                         'fname: ${item[i]['fname']}',
+//                         style: TextStyle(fontSize: 15),
+//                       ),
+//                       Text(
+//                         'lname : ${item[i]['lname']}',
+//                         style: TextStyle(fontSize: 15),
+//                       ),
+//                       Text(
+//                         'phone : ${item[i]['phone']}',
+//                         style: TextStyle(fontSize: 20),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           )),
+//     );
+//   }
+// }
