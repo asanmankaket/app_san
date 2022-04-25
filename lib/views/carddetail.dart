@@ -15,9 +15,7 @@ class _CarddetailState extends State<Carddetail> {
       appBar: AppBar(title: Text('ข้อมูลพนักงงาน')),
       body: SafeArea(
         child: Container(
-            child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('ชื่อผู้ใช้ ${widget.data['fname']}'),
               Text('นามสกุล ${widget.data['lname']}'),
