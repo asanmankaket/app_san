@@ -32,36 +32,6 @@ class _Page1State extends State<Page1> {
     });
   }
 
-  List<Map<String, String>> item = [
-    {
-      'title': 'นาย',
-      'fname': 'นัท',
-      'lname': 'มั้ง',
-      'phone': '0897897979',
-      'image': 'eqweqweqwf'
-    },
-    {
-      'title': 'นาย',
-      'fname': 'อาซาน',
-      'lname': 'มรรคาเขต',
-      'phone': '0897897979',
-      'image': 'eqweqweqwf'
-    },
-    {
-      'title': 'นาย',
-      'fname': 'สองแสน',
-      'lname': 'รามคำแหง',
-      'phone': '0897897979',
-      'image': 'eqweqweqwf'
-    },
-    {
-      'title': 'นาย',
-      'fname': 'อำเภอ',
-      'lname': 'สงขลา',
-      'phone': '0897897979',
-      'image': 'eqweqweqwf'
-    }
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,6 +61,9 @@ class _Page1State extends State<Page1> {
                   elevation: 10,
                   color: Color.fromARGB(255, 150, 217, 234),
                   shadowColor: Color.fromARGB(255, 10, 91, 111),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,16 +80,16 @@ class _Page1State extends State<Page1> {
                                 // color: Color.fromARGB(255, 150, 217, 234),
                                 // ignore: prefer_const_constructors
                                 child: CircleAvatar(
-                                  // backgroundColor:
-                                  //     Color.fromARGB(255, 150, 217, 234),
-                                  // foregroundColor:
-                                  //     Color.fromARGB(255, 150, 217, 234),
-                                  // ignore: prefer_const_constructors
-                                  backgroundImage:
-                                      AssetImage('assets/images/Delete.png'),
-                                  // backgroundImage: NetworkImage(
-                                  //     "https://obs.line-scdn.net/0ho7Hx9FjJMBh1ARpkc9xPT09XM3dGbSMbETdhGylvbiwKMSRPGm4vLVlVO3oNOXdGG297dlEAKylQNXFMSmEv/w644"),
-                                ),
+                                    // backgroundColor:
+                                    //     Color.fromARGB(255, 150, 217, 234),
+                                    // foregroundColor:
+                                    //     Color.fromARGB(255, 150, 217, 234),
+                                    // ignore: prefer_const_constructors
+                                    // backgroundImage:
+                                    // NetworkImage('${data[i]['image']}'),
+                                    // backgroundImage: NetworkImage(
+                                    //     "https://obs.line-scdn.net/0ho7Hx9FjJMBh1ARpkc9xPT09XM3dGbSMbETdhGylvbiwKMSRPGm4vLVlVO3oNOXdGG297dlEAKylQNXFMSmEv/w644"),
+                                    ),
                               ),
                               SizedBox(
                                 width: 10,
@@ -159,7 +132,7 @@ class _Page1State extends State<Page1> {
 }
 
 Future<dynamic> Getdata() async {
-  Uri url = Uri.parse('http://192.168.1.36:3000/api/mentor');
+  Uri url = Uri.parse('http://192.168.1.33:3000/api/mentor');
   return await http
       .get(
     url,
