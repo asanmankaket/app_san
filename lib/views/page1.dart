@@ -15,7 +15,6 @@ class Page1 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page1> {
-  TextEditingController username = TextEditingController();
   @override
   dynamic data;
 
