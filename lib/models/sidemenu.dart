@@ -33,7 +33,7 @@ class _SideMenuState extends State<SideMenu> {
           Container(
             padding: EdgeInsets.symmetric(vertical: 20),
             decoration: BoxDecoration(
-              color: Colors.lightGreen,
+              color: Color.fromARGB(255, 45, 134, 156),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.5),
@@ -87,15 +87,15 @@ class _SideMenuState extends State<SideMenu> {
                   context,
                   Icon(Icons.house),
                   //แก้ตรงนี้--------------------------------------------------------------------------------------
-                  'หน้าแรก',
+                  'หาพี่เลี้ยง',
                   '/Page1',
                 ),
                 routeItem(
                   context,
                   Icon(Icons.house),
                   //แก้ตรงนี้--------------------------------------------------------------------------------------
-                  'หน้าแรก',
-                  '/page1',
+                  'นัดหมาย',
+                  '/book',
                 ),
                 routeItem(
                   context,
@@ -115,7 +115,9 @@ class _SideMenuState extends State<SideMenu> {
                 ListTile(
                   // leading: Icon(FontAwesomeIcons.rightFromBracket),
                   title: Text(
-                      'ออกจากระบบ'), //แก้ตรงนี้--------------------------------------------------------------------------------------
+                    'ออกจากระบบ',
+                    style: TextStyle(color: Colors.red),
+                  ), //แก้ตรงนี้--------------------------------------------------------------------------------------
                   onTap: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
