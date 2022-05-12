@@ -25,7 +25,7 @@
         </intent>
     </queries>
    <application
-        android:label="flutter_appcare"
+        android:label="Nut-SanAPP"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
