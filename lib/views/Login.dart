@@ -207,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
 Future CheckLogin(String username, String password, context) async {
   EasyLoading.show(status: 'loading...');
 
-  Uri url = Uri.parse('http://192.168.1.2:3000/api/customer/login');
+  Uri url = Uri.parse('http://192.168.1.9:3000/api/customer/login');
   http
       .post(
     url,

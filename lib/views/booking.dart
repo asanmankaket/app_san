@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_appcare/configs/config.dart';
 import 'package:flutter_appcare/views/book_detail.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import '../models/sidemenu.dart';
 
 class Booking extends StatefulWidget {
-  Booking({Key? key}) : super(key: key);
+  const Booking({Key? key}) : super(key: key);
 
   @override
   State<Booking> createState() => _BookingState();
@@ -16,6 +16,7 @@ class Booking extends StatefulWidget {
 class _BookingState extends State<Booking> {
   dynamic data;
 
+  @override
   void initState() {
     super.initState();
     startApi();
@@ -33,8 +34,8 @@ class _BookingState extends State<Booking> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('data'),
-        backgroundColor: Color.fromARGB(255, 45, 134, 156),
+        title: const Text('นัดหมาย'),
+        backgroundColor: const Color.fromARGB(255, 45, 134, 156),
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -73,10 +74,10 @@ class _BookingState extends State<Booking> {
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(
-                              width: 10,
+                            const SizedBox(
+                              width: 15,
                             ),
-                            Container(
+                            const SizedBox(
                               width: 55.0,
                               height: 55.0,
                               // color: Color.fromARGB(255, 150, 217, 234),
@@ -93,34 +94,34 @@ class _BookingState extends State<Booking> {
                                   //     "https://obs.line-scdn.net/0ho7Hx9FjJMBh1ARpkc9xPT09XM3dGbSMbETdhGylvbiwKMSRPGm4vLVlVO3oNOXdGG297dlEAKylQNXFMSmEv/w644"),
                                   ),
                             ),
-                            SizedBox(
-                              width: 10,
+                            const SizedBox(
+                              width: 15,
                             ),
                             Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(22),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'title : ${data[i]['title']}',
-                                    style: TextStyle(fontSize: 15),
+                                    '${data[i]['title']} ${data[i]['fname']} ${data[i]['lname']}',
+                                    style: const TextStyle(fontSize: 15),
                                   ),
                                   Text(
                                     'เริ่ม : ' +
                                         DateFormat('dd-mm-yy KK:MM').format(
                                             DateTime.parse(
                                                 '${data[i]['start_time']}')),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 16,
                                     ),
-                                  Text(
-                                    'lname : ${data[i]['lname']}',
-                                    style: TextStyle(fontSize: 15),
                                   ),
                                   Text(
-                                    'phone : ${data[i]['phone']}',
-                                    style: TextStyle(
-                                      fontSize: 20,
+                                    'ถึง :  ' +
+                                        DateFormat('dd-mm-yy KK:MM').format(
+                                            DateTime.parse(
+                                                '${data[i]['end_time']}')),
+                                    style: const TextStyle(
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ],
@@ -139,11 +140,10 @@ class _BookingState extends State<Booking> {
 }
 
 Future<dynamic> Getdata() async {
-  Uri url = Uri.parse('http://192.168.1.2:3000/api/booking/');
+  Uri url = Uri.parse('http://192.168.1.9:3000/api/booking');
   return await http
       .get(
     url,
-    headers: headers,
   )
       .then((req) async {
     print(req.statusCode);

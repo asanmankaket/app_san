@@ -36,7 +36,7 @@ class _Page1State extends State<Page1> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 227, 227, 227),
       appBar: AppBar(
-        title: Text('Page1'),
+        title: Text('หาพี่เลี้ยง'),
         backgroundColor: Color.fromARGB(255, 45, 134, 156),
       ),
       body: SizedBox(
@@ -85,7 +85,10 @@ class _Page1State extends State<Page1> {
                                     //     Color.fromARGB(255, 150, 217, 234),
                                     // ignore: prefer_const_constructors
                                     // backgroundImage:
-                                    // NetworkImage('${data[i]['image']}'),
+                                    //     AssetImage('assets/image/$i.jpeg'),
+
+                                    // backgroundImage:
+                                    //     NetworkImage('${data[i]['image']}'),
                                     // backgroundImage: NetworkImage(
                                     //     "https://obs.line-scdn.net/0ho7Hx9FjJMBh1ARpkc9xPT09XM3dGbSMbETdhGylvbiwKMSRPGm4vLVlVO3oNOXdGG297dlEAKylQNXFMSmEv/w644"),
                                     ),
@@ -94,24 +97,23 @@ class _Page1State extends State<Page1> {
                                 width: 10,
                               ),
                               Container(
-                                padding: EdgeInsets.all(8),
+                                padding: EdgeInsets.all(22),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'title : ${data[i]['title']}',
+                                      '${data[i]['title']} ${data[i]['fname']} ${data[i]['lname']}',
                                       style: TextStyle(fontSize: 15),
                                     ),
-                                    Text(
-                                      'fname: ${data[i]['fname']}',
-                                      style: TextStyle(fontSize: 15),
+                                    SizedBox(
+                                      height: 2,
+                                    ),
+                                    Text('Rate/hr: ${data[i]['rate']}'),
+                                    SizedBox(
+                                      height: 2,
                                     ),
                                     Text(
-                                      'lname : ${data[i]['lname']}',
-                                      style: TextStyle(fontSize: 15),
-                                    ),
-                                    Text(
-                                      'phone : ${data[i]['phone']}',
+                                      '${data[i]['phone']}',
                                       style: TextStyle(
                                         fontSize: 20,
                                       ),
@@ -131,7 +133,7 @@ class _Page1State extends State<Page1> {
 }
 
 Future<dynamic> Getdata() async {
-  Uri url = Uri.parse('http://192.168.1.2:3000/api/mentor');
+  Uri url = Uri.parse('http://192.168.1.9:3000/api/mentor');
   return await http
       .get(
     url,

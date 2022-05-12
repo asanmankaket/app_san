@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class bookdetail extends StatefulWidget {
   const bookdetail({Key? key, required this.data}) : super(key: key);
@@ -9,10 +10,15 @@ class bookdetail extends StatefulWidget {
 }
 
 class _bookdetailState extends State<bookdetail> {
+  get children => null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('ข้อมูลพนักงงาน')),
+      appBar: AppBar(
+        title: Text('ข้อมูลพนักงงาน'),
+        backgroundColor: Color.fromARGB(255, 45, 134, 156),
+      ),
       body: SafeArea(
         child: Container(
           child: Column(
@@ -25,8 +31,31 @@ class _bookdetailState extends State<bookdetail> {
                 child: CircleAvatar(
                   radius: 70,
                   // backgroundImage: ('${widget.data['image']}'),
+                  backgroundColor: Color.fromARGB(255, 45, 134, 156),
                 ),
               ),
+              SizedBox(
+                height: 15,
+              ),
+              SizedBox(
+                  child: Column(children: [
+                Text(
+                  'เริ่ม : ' +
+                      DateFormat('dd-mm-yy KK:MM').format(
+                          DateTime.parse('${widget.data['start_time']}')),
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  'ถึง :  ' +
+                      DateFormat('dd-mm-yy KK:MM')
+                          .format(DateTime.parse('${widget.data['end_time']}')),
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ])),
               SizedBox(
                 height: 30,
               ),
@@ -52,53 +81,58 @@ class _bookdetailState extends State<bookdetail> {
               SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                  child: Row(
+              Row(
                 children: [
-                  SizedBox(
-                    width: 30,
-                  ),
-                  // ignore: prefer_const_constructors
-                  Icon(
-                    Icons.call,
-                    color: Colors.blue,
-                    size: 30,
-                  ),
-                  Text(
-                    '   ${widget.data['phone']}',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(
-                    width: 120,
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 40,
+                      ),
+                      // ignore: prefer_const_constructors
+                      Icon(
+                        Icons.call,
+                        color: Colors.blue,
+                        size: 30,
+                      ),
+                      Text(
+                        '   ${widget.data['phone']}',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      SizedBox(
+                        width: 120,
+                      ),
+                    ],
                   ),
                   TextButton(onPressed: () {}, child: const Text('แก้ไข'))
                 ],
-              )),
+              ),
               SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 30,
-                    ),
-                    Icon(
-                      Icons.map,
-                      color: Colors.blue,
-                    ),
-                    Text(
-                      '''   ${widget.data['adr1']} ${widget.data['adr2']} 
+              Row(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 40,
+                      ),
+                      Icon(
+                        Icons.map,
+                        color: Colors.blue,
+                      ),
+                      Text(
+                        '''   ${widget.data['adr1']} ${widget.data['adr2']} 
     ${widget.data['city']}''',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    SizedBox(width: 17),
-                    TextButton(onPressed: () {}, child: const Text('แก้ไข'))
-                  ],
-                ),
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      SizedBox(width: 162),
+                    ],
+                  ),
+                  TextButton(onPressed: () {}, child: const Text('แก้ไข'))
+                ],
               ),
               SizedBox(
-                height: 130,
+                height: 50,
               ),
               TextButton(
                 style: TextButton.styleFrom(

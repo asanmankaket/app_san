@@ -14,7 +14,10 @@ class _CarddetailState extends State<Carddetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('ข้อมูลพนักงงาน')),
+      appBar: AppBar(
+        title: Text('ข้อมูลพนักงงาน'),
+        backgroundColor: Color.fromARGB(255, 45, 134, 156),
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -25,6 +28,7 @@ class _CarddetailState extends State<Carddetail> {
               //รูปavatar
               child: CircleAvatar(
                 radius: 70,
+                backgroundColor: Color.fromARGB(255, 45, 134, 156),
                 // backgroundImage: ('${widget.data['image']}'),
               ),
             ),
@@ -78,8 +82,8 @@ class _CarddetailState extends State<Carddetail> {
             SizedBox(
               height: 10,
             ),
-            SizedBox(
-              child: Row(
+            Row(children: [
+              Row(
                 children: [
                   SizedBox(
                     width: 30,
@@ -89,15 +93,16 @@ class _CarddetailState extends State<Carddetail> {
                     color: Colors.blue,
                   ),
                   Text(
-                    '''   ${widget.data['adr1']} ${widget.data['adr2']} 
+                    '''   ${widget.data['adr1']} 
+    ${widget.data['adr2']} 
     ${widget.data['city']}''',
                     style: TextStyle(fontSize: 18),
                   ),
-                  SizedBox(width: 17),
-                  TextButton(onPressed: () {}, child: const Text('แก้ไข'))
                 ],
               ),
-            ),
+              SizedBox(width: 50),
+              TextButton(onPressed: () {}, child: const Text('แก้ไข'))
+            ]),
             SizedBox(
               height: 30,
             ),
@@ -112,7 +117,9 @@ class _CarddetailState extends State<Carddetail> {
                 textStyle: const TextStyle(fontSize: 20),
               ),
               onPressed: () {},
-              child: const Text('นัดเวลา'),
+              child: const Text(
+                'นัดเวลา',
+              ),
             ),
           ],
         ),

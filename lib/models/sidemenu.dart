@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_appcare/views/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../configs/config.dart';
 import '../views/login.dart';
@@ -60,34 +61,44 @@ class _SideMenuState extends State<SideMenu> {
             child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(left: 15),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/LOGO.png'),
-                      backgroundColor: Colors.white,
-                      radius: 40,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'nut',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'nazree awaekechi',
-                            style: TextStyle(color: Colors.white, fontSize: 16),
-                          )
-                        ],
+                child: GestureDetector(
+                  onTap: (() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Profiles()),
+                    );
+                  }),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage:
+                            AssetImage('assets/images/profile.jpg'),
+                        backgroundColor: Colors.white,
+                        radius: 40,
                       ),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'nut',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              'nazree awaekechi',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
