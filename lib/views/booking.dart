@@ -106,9 +106,13 @@ class _BookingState extends State<Booking> {
                                     style: TextStyle(fontSize: 15),
                                   ),
                                   Text(
-                                    'fname: ${data[i]['fname']}',
-                                    style: TextStyle(fontSize: 15),
-                                  ),
+                                    'เริ่ม : ' +
+                                        DateFormat('dd-mm-yy KK:MM').format(
+                                            DateTime.parse(
+                                                '${data[i]['start_time']}')),
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
                                   Text(
                                     'lname : ${data[i]['lname']}',
                                     style: TextStyle(fontSize: 15),
