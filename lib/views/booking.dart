@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_appcare/configs/config.dart';
+import 'package:flutter_appcare/views/book_detail.dart';
 import 'package:http/http.dart' as http;
 import '../models/sidemenu.dart';
 
@@ -52,6 +53,11 @@ class _BookingState extends State<Booking> {
                 //     MaterialPageRoute<void>(
                 //         builder: (BuildContext context) =>
                 //             Carddetail(data: data[i])));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>
+                            bookdetail(data: data[i])));
               },
               child: Card(
                 elevation: 10,
@@ -129,7 +135,7 @@ class _BookingState extends State<Booking> {
 }
 
 Future<dynamic> Getdata() async {
-  Uri url = Uri.parse('http://192.168.1.33:3000/api/booking/ ');
+  Uri url = Uri.parse('http://192.168.1.2:3000/api/booking/');
   return await http
       .get(
     url,

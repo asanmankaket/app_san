@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../configs/config.dart';
 import '../views/login.dart';
+import 'package:http/http.dart' as http;
 
 class SideMenu extends StatefulWidget {
   SideMenu({
@@ -17,9 +21,19 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
+  dynamic data;
+
   @override
   void initState() {
     super.initState();
+  }
+
+  startApi() async {
+    var item = await Getdata();
+    print(item?.first);
+    setState(() {
+      data = item;
+    });
   }
 
   @override
@@ -60,14 +74,14 @@ class _SideMenuState extends State<SideMenu> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'username',
+                            'nut',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'name',
+                            'nazree awaekechi',
                             style: TextStyle(color: Colors.white, fontSize: 16),
                           )
                         ],
@@ -92,7 +106,7 @@ class _SideMenuState extends State<SideMenu> {
                 ),
                 routeItem(
                   context,
-                  Icon(Icons.house),
+                  Icon(Icons.event_note),
                   //แก้ตรงนี้--------------------------------------------------------------------------------------
                   'นัดหมาย',
                   '/book',
@@ -153,4 +167,23 @@ class _SideMenuState extends State<SideMenu> {
       },
     );
   }
+}
+
+Future<dynamic> Getdata() async {
+  Uri url = Uri.parse('http://192.168.1.2:3000/api/customer/11');
+  return await http
+      .get(
+    url,
+    headers: headers,
+  )
+      .then((req) async {
+    print(req.statusCode);
+    if (req.statusCode == 200) {
+      var data = jsonDecode(req.body);
+      return data;
+    } else {
+      print('error');
+      return null;
+    }
+  });
 }
