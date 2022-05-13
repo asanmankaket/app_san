@@ -27,7 +27,7 @@
    <application
         android:label="Nut-SanAPP"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyCnl5zRew6L00sZg2vu_JJ_BlCJpVvrTOs"/>
         <activity

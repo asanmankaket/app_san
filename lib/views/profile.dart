@@ -58,6 +58,7 @@ class _ProfilesState extends State<Profiles> {
           Center(
             child: CircleAvatar(
               radius: 80,
+              backgroundImage: AssetImage('assets/images/profile.jpg'),
               backgroundColor: Color.fromARGB(255, 45, 134, 156),
             ),
           ),
