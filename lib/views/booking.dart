@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_appcare/views/book_detail.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import '../models/sidemenu.dart';
@@ -16,7 +15,6 @@ class Booking extends StatefulWidget {
 class _BookingState extends State<Booking> {
   dynamic data;
 
-  @override
   void initState() {
     super.initState();
     startApi();
