@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/sidemenu.dart';
 
 class Booking extends StatefulWidget {
@@ -13,6 +14,7 @@ class Booking extends StatefulWidget {
 }
 
 class _BookingState extends State<Booking> {
+  @override
   dynamic data;
 
   void initState() {
@@ -21,13 +23,23 @@ class _BookingState extends State<Booking> {
   }
 
   startApi() async {
-    var item = await Getdata();
-    print(item?.first);
+    final prefs =
+        await SharedPreferences.getInstance(); //เพิ่มตัวแชร์จากหน้าlogin
+    int? idUser = prefs.getInt(
+        'idm'); //เอาตัวidของcustomerมาใช้กับหน้านี้แล้วเอาค่าไปใส่ในidUser
+    dynamic item = await Getdata(idUser); //ส่งค่าไปยัง getdataหรือตัวรับapi
+
     setState(() {
       data = item;
     });
+
+    print('หลังจากรับ:'); //ทดสอบprintตัวdataที่รับมาจากapi
+    print(data);
+    print('จำนวนdata:');
+    print(data.length); //ทดสอบprint จำนวนของdata
   }
 
+  late AsyncSnapshot snapshot; //ยังไม่รู้จะใช้ยังไง
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,21 +54,22 @@ class _BookingState extends State<Booking> {
             startApi();
           },
           child: ListView.builder(
-            itemCount: data?.length ?? 0,
+            // itemCount: data?.length ?? 0, //เอาออกไปก่อนเพราะตัวdata.lengthยังพังอยู่
+            itemCount: 3, //ใช้ตัวนี้แทนเพราะตัวdataพัง
             itemBuilder: (context, i) => InkWell(
               // onTap: () => Navigator.pushNamed(context, "/CDT"),
               onTap: () {
-                print('หน้านัดหมาย');
+                // print('หน้านัดหมาย');
+                // // Navigator.push(
+                // //     context,
+                // //     MaterialPageRoute<void>(
+                // //         builder: (BuildContext context) =>
+                // //             Carddetail(data: data[i])));
                 // Navigator.push(
                 //     context,
                 //     MaterialPageRoute<void>(
                 //         builder: (BuildContext context) =>
-                //             Carddetail(data: data[i])));
-                Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                        builder: (BuildContext context) =>
-                            bookdetail(data: data[i])));
+                //             bookdetail(data: data[i])));
               },
               child: Card(
                 elevation: 10,
@@ -101,14 +114,14 @@ class _BookingState extends State<Booking> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${data[i]['title']} ${data[i]['fname']} ${data[i]['lname']}',
+                                    '${data['title']} ${data['fname']} ${data['lname']}',
                                     style: const TextStyle(fontSize: 15),
                                   ),
                                   Text(
                                     'เริ่ม : ' +
                                         DateFormat('dd-mm-yy KK:MM').format(
                                             DateTime.parse(
-                                                '${data[i]['start_time']}')),
+                                                '${data['start_time']}')),
                                     style: const TextStyle(
                                       fontSize: 16,
                                     ),
@@ -117,7 +130,7 @@ class _BookingState extends State<Booking> {
                                     'ถึง :  ' +
                                         DateFormat('dd-mm-yy KK:MM').format(
                                             DateTime.parse(
-                                                '${data[i]['end_time']}')),
+                                                '${data['end_time']}')),
                                     style: const TextStyle(
                                       fontSize: 16,
                                     ),
@@ -132,13 +145,14 @@ class _BookingState extends State<Booking> {
           ),
         ),
       ),
-      drawer: SideMenu(),
+      drawer: SideMenu(), //หน้าปุ่มsidemenu
     );
   }
 }
 
-Future<dynamic> Getdata() async {
-  Uri url = Uri.parse('http://192.168.1.9:3000/api/booking');
+Future<dynamic> Getdata(dynamic idUser) async {
+  Uri url = Uri.parse(
+      'http://192.168.1.9:3000/api/booking/$idUser'); //รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง
   return await http
       .get(
     url,

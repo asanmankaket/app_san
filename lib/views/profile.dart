@@ -2,9 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:age_calculator/age_calculator.dart';
-import 'package:intl/intl.dart';
-import '../configs/config.dart';
 
 class Profiles extends StatefulWidget {
   const Profiles({Key? key}) : super(key: key);
@@ -195,13 +192,8 @@ class _ProfilesState extends State<Profiles> {
 }
 
 Future<dynamic> Getdata() async {
-  Uri url = Uri.parse('http://192.168.1.9:3000/api/customer/11');
-  return await http
-      .get(
-    url,
-    // headers: headers,
-  )
-      .then((req) async {
+  Uri url = Uri.parse('http://192.168.1.9:3000/api/customer/10');
+  return await http.get(url).then((req) async {
     print(req.statusCode);
     if (req.statusCode == 200) {
       var data = jsonDecode(req.body);

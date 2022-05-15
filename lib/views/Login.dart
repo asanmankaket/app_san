@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter_appcare/configs/config.dart';
+import 'package:flutter_appcare/views/page1.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   CheckToken1() async {
     final prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
+
     print(token);
     if (prefs.getString('token') != null) {
       headers?['Authorization'] = "bearer ${prefs.getString('token')}";
@@ -219,10 +221,14 @@ Future CheckLogin(String username, String password, context) async {
       final prefs = await SharedPreferences.getInstance();
       var data = jsonDecode(req.body);
       prefs.setString('token', data['token']);
+      prefs.setInt('idm', data['id']);
+      print('ข้อมูลid');
+      print(prefs.get('idm'));
       headers?['Authorization'] = "bearer ${data['token']}";
       EasyLoading.showSuccess('Great Success!');
-      Navigator.pushNamedAndRemoveUntil(
-          context, "/Page1", (Route<dynamic> route) => false);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Page1()),
+          (Route<dynamic> route) => false);
     } else {
       print('error');
       EasyLoading.showError('Failed with Error');
