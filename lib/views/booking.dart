@@ -57,20 +57,7 @@ class _BookingState extends State<Booking> {
             // itemCount: data?.length ?? 0, //เอาออกไปก่อนเพราะตัวdata.lengthยังพังอยู่
             itemCount: 3, //ใช้ตัวนี้แทนเพราะตัวdataพัง
             itemBuilder: (context, i) => InkWell(
-              // onTap: () => Navigator.pushNamed(context, "/CDT"),
-              onTap: () {
-                // print('หน้านัดหมาย');
-                // // Navigator.push(
-                // //     context,
-                // //     MaterialPageRoute<void>(
-                // //         builder: (BuildContext context) =>
-                // //             Carddetail(data: data[i])));
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute<void>(
-                //         builder: (BuildContext context) =>
-                //             bookdetail(data: data[i])));
-              },
+              onTap: () {},
               child: Card(
                 elevation: 10,
                 color: Color.fromARGB(255, 150, 217, 234),
@@ -91,19 +78,7 @@ class _BookingState extends State<Booking> {
                             const SizedBox(
                               width: 55.0,
                               height: 55.0,
-                              // color: Color.fromARGB(255, 150, 217, 234),
-                              // ignore: prefer_const_constructors
-                              child: CircleAvatar(
-                                  // backgroundColor:
-                                  //     Color.fromARGB(255, 150, 217, 234),
-                                  // foregroundColor:
-                                  //     Color.fromARGB(255, 150, 217, 234),
-                                  // ignore: prefer_const_constructors
-                                  // backgroundImage:
-                                  // NetworkImage('${data[i]['image']}'),
-                                  // backgroundImage: NetworkImage(
-                                  //     "https://obs.line-scdn.net/0ho7Hx9FjJMBh1ARpkc9xPT09XM3dGbSMbETdhGylvbiwKMSRPGm4vLVlVO3oNOXdGG297dlEAKylQNXFMSmEv/w644"),
-                                  ),
+                              child: CircleAvatar(),
                             ),
                             const SizedBox(
                               width: 15,
