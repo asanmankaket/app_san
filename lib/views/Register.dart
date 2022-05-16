@@ -222,7 +222,8 @@ Future CheckRegister(String username, String password, String name,
     String surname, String picdate, context) async {
   EasyLoading.show(status: 'loading...');
 
-  Uri url = Uri.parse('http://192.168.1.9:3000/api/customer');
+  // Uri url = Uri.parse('http://165.22.63.114:3500/api/customer');
+  Uri url = Uri.parse('http://192.168.1.9:3200/api/customer');
   http
       .post(
     url,

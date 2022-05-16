@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_appcare/views/book_detail.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -53,10 +54,17 @@ class _BookingState extends State<Booking> {
             startApi();
           },
           child: ListView.builder(
-            // itemCount: data?.length ?? 0, //เอาออกไปก่อนเพราะตัวdata.lengthยังพังอยู่
-            itemCount: 3, //ใช้ตัวนี้แทนเพราะตัวdataพัง
+            itemCount:
+                data?.length ?? 0, //เอาออกไปก่อนเพราะตัวdata.lengthยังพังอยู่
+            // itemCount: 3, //ใช้ตัวนี้แทนเพราะตัวdataพัง
             itemBuilder: (context, i) => InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>
+                            bookdetail(data: data[i])));
+              },
               child: Card(
                 elevation: 10,
                 color: Color.fromARGB(255, 150, 217, 234),
@@ -88,14 +96,14 @@ class _BookingState extends State<Booking> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${data['title']} ${data['fname']} ${data['lname']}',
+                                    '${data[i]['title']} ${data[i]['fname']} ${data[i]['lname']}',
                                     style: const TextStyle(fontSize: 15),
                                   ),
                                   Text(
                                     'เริ่ม : ' +
                                         DateFormat('dd-mm-yy KK:MM').format(
                                             DateTime.parse(
-                                                '${data['start_time']}')),
+                                                '${data[i]['start_time']}')),
                                     style: const TextStyle(
                                       fontSize: 16,
                                     ),
@@ -104,7 +112,7 @@ class _BookingState extends State<Booking> {
                                     'ถึง :  ' +
                                         DateFormat('dd-mm-yy KK:MM').format(
                                             DateTime.parse(
-                                                '${data['end_time']}')),
+                                                '${data[i]['end_time']}')),
                                     style: const TextStyle(
                                       fontSize: 16,
                                     ),
@@ -125,8 +133,10 @@ class _BookingState extends State<Booking> {
 }
 
 Future<dynamic> Getdata(dynamic idUser) async {
+  // Uri url = Uri.parse(
+  //     'http://165.22.63.114:3500/api/booking/cust/$idUser'); //รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง
   Uri url = Uri.parse(
-      'http://192.168.1.9:3000/api/booking/$idUser'); //รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง
+      'http://192.168.1.9:3200/api/booking/cust/$idUser'); //รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง
   return await http
       .get(
     url,
@@ -134,6 +144,7 @@ Future<dynamic> Getdata(dynamic idUser) async {
       .then((req) async {
     print(req.statusCode);
     if (req.statusCode == 200) {
+      print(req.body);
       var data = jsonDecode(req.body);
       return data;
     } else {

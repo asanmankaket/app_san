@@ -27,14 +27,19 @@ class _SideMenuState extends State<SideMenu> {
   @override
   void initState() {
     super.initState();
+    startApi();
   }
 
   startApi() async {
-    var item = await Getdata();
-    print(item?.first);
+    final prefs =
+        await SharedPreferences.getInstance(); //เพิ่มตัวแชร์จากหน้าlogin
+    int? idUser = prefs.getInt(
+        'idm'); //เอาตัวidของcustomerมาใช้กับหน้านี้แล้วเอาค่าไปใส่ในidUser
+    dynamic item = await Getdata(idUser); //ส่งค่าไปยัง getdataหรือตัวรับapi
     setState(() {
       data = item;
     });
+    print(data);
   }
 
   @override
@@ -64,9 +69,10 @@ class _SideMenuState extends State<SideMenu> {
                 child: GestureDetector(
                   onTap: (() {
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Profiles()),
-                    );
+                    context,
+                    MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>
+                            Profiles(data: data)));
                   }),
                   child: Row(
                     children: [
@@ -83,14 +89,14 @@ class _SideMenuState extends State<SideMenu> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'nut',
+                              '${data['username']}',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              'nazree awaekechi',
+                              '${data['fname']}  ${data['lname']}',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 16),
                             )
@@ -180,8 +186,9 @@ class _SideMenuState extends State<SideMenu> {
   }
 }
 
-Future<dynamic> Getdata() async {
-  Uri url = Uri.parse('http://192.168.1.2:3000/api/customer/11');
+Future<dynamic> Getdata(dynamic idUser) async {
+  // Uri url = Uri.parse('http://165.22.63.114:3500/api/customer/11');
+  Uri url = Uri.parse('http://192.168.1.9:3200/api/customer/$idUser');
   return await http
       .get(
     url,

@@ -6,29 +6,13 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profiles extends StatefulWidget {
-  const Profiles({Key? key}) : super(key: key);
-
+  const Profiles({Key? key, required this.data}) : super(key: key);
+  final dynamic data;
   @override
   State<Profiles> createState() => _ProfilesState();
 }
 
 class _ProfilesState extends State<Profiles> {
-  dynamic data = [];
-
-  @override
-  void initState() {
-    super.initState();
-    startApi();
-  }
-
-  startApi() async {
-    var item = await Getdata();
-    print(item?.first);
-    setState(() {
-      data = item;
-    });
-  }
-
   // datetime() {
   //   final birtday1 = DateFormat('yy, mm, dd')
   //       .format(DateTime.parse('${data['start_time']}'));
@@ -72,13 +56,13 @@ class _ProfilesState extends State<Profiles> {
                   child: Column(
                     children: [
                       Text(
-                        'นาย นัสรีย์ อาแวกือจิ',
+                        '${widget.data['title']} ${widget.data['fname']} ${widget.data['lname']}',
                         // '${data['title']} ${data['fname']} ${data['lname']}',
                         //สำหรับใส่ข้อมูลจากdatabase
                         style: TextStyle(fontSize: 24),
                       ),
                       Text(
-                        'อายุ : 22  ' + ' เพศ : ชาย',
+                        'อายุ : 22  ' + ' เพศ : ${widget.data['title']}',
                         //ใส่อายุ
                         style: TextStyle(fontSize: 24),
                       ),
@@ -151,7 +135,7 @@ class _ProfilesState extends State<Profiles> {
               SizedBox(width: 80),
               Icon(Icons.phone),
               SizedBox(width: 10),
-              Text('0929320621', style: TextStyle(fontSize: 17)),
+              Text('${widget.data['phone']}', style: TextStyle(fontSize: 17)),
               SizedBox(width: 105),
               TextButton(
                   onPressed: () {},
@@ -164,8 +148,8 @@ class _ProfilesState extends State<Profiles> {
               SizedBox(width: 80),
               Icon(Icons.phone),
               SizedBox(width: 10),
-              Text('''99 หมู่ 7 ถนนราชดำเนิน 
-อ.เมือง จ.นราธิวาส 90000''', style: TextStyle(fontSize: 17)),
+              Text('''${widget.data['address']}''',
+                  style: TextStyle(fontSize: 17)),
               SizedBox(width: 17),
               TextButton(
                   onPressed: () {},
@@ -201,18 +185,4 @@ class _ProfilesState extends State<Profiles> {
       ),
     );
   }
-}
-
-Future<dynamic> Getdata() async {
-  Uri url = Uri.parse('http://192.168.1.9:3000/api/customer/10');
-  return await http.get(url).then((req) async {
-    print(req.statusCode);
-    if (req.statusCode == 200) {
-      var data = jsonDecode(req.body);
-      return data;
-    } else {
-      print('error');
-      return null;
-    }
-  });
 }
