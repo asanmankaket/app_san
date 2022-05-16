@@ -1,8 +1,15 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_appcare/models/textformfieldmodel.dart';
+import 'package:flutter_appcare/views/page1.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import '../configs/config.dart';
 
 class PageOne extends StatefulWidget {
   PageOne({Key? key}) : super(key: key);
@@ -114,7 +121,6 @@ class _Register extends State<PageOne> {
               ),
               TextFormField(
                 controller: picdate,
-
                 readOnly: true,
                 onTap: () {
                   newDate();
@@ -146,45 +152,49 @@ class _Register extends State<PageOne> {
               SizedBox(
                 height: 10,
               ),
-              TextFormField(
-                controller: pictime,
+              // TextFormField(
+              //   controller: pictime,
 
-                readOnly: true,
-                onTap: () {
-                  newtime();
-                },
-                style: TextStyle(
-                    color: Color.fromARGB(255, 255, 255, 255), fontSize: 17),
-                keyboardType: TextInputType.text,
-                onChanged: (value) {
-                  print(value);
-                },
-                // ignore: prefer_const_constructors
-                decoration: InputDecoration(
-                  labelText: 'time',
-                  labelStyle: TextStyle(color: Colors.white),
-                  hintText: 'time',
-                  hintStyle:
-                      TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
-                      borderRadius: BorderRadius.all(Radius.circular(50))),
-                ),
-              ),
+              //   readOnly: true,
+              //   onTap: () {
+              //     newtime();
+              //   },
+              //   style: TextStyle(
+              //       color: Color.fromARGB(255, 255, 255, 255), fontSize: 17),
+              //   keyboardType: TextInputType.text,
+              //   onChanged: (value) {
+              //     print(value);
+              //   },
+              //   // ignore: prefer_const_constructors
+              //   decoration: InputDecoration(
+              //     labelText: 'time',
+              //     labelStyle: TextStyle(color: Colors.white),
+              //     hintText: 'time',
+              //     hintStyle:
+              //         TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+              //     enabledBorder: OutlineInputBorder(
+              //       borderSide:
+              //           BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
+              //       borderRadius: BorderRadius.all(Radius.circular(50)),
+              //     ),
+              //     focusedBorder: OutlineInputBorder(
+              //         borderSide:
+              //             BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
+              //         borderRadius: BorderRadius.all(Radius.circular(50))),
+              //   ),
+              // ),
               SizedBox(
                 height: 20,
               ),
               ElevatedButton(
-                onPressed: () {
-                  print('ลงทะเบียน');
-                  // Navigator.pushNamed(context,
-                  //     "/PageOne", (Route<dynamic> route) => false);
+                onPressed: () async {
+                  print('สมัครสมาชิก');
+
+                  await CheckRegister(username.text, password.text, name.text,
+                      surname.text, picdate.text, context);
+
+                  // Navigator.pushNamedAndRemoveUntil(context,
+                  //     "/Page1", (Route<dynamic> route) => false);
                 },
                 child: Text(
                   'Confirm',
@@ -206,4 +216,41 @@ class _Register extends State<PageOne> {
       ),
     );
   }
+}
+
+Future CheckRegister(String username, String password, String name,
+    String surname, String picdate, context) async {
+  EasyLoading.show(status: 'loading...');
+
+  Uri url = Uri.parse('http://192.168.1.9:3000/api/customer');
+  http
+      .post(
+    url,
+    headers: headers,
+    body: jsonEncode({
+      "username": username,
+      "password": password,
+      "fname": name,
+      "lname": surname,
+    }),
+  )
+      .then((req) async {
+    if (req.statusCode == 200) {
+      final prefs = await SharedPreferences.getInstance();
+      var data = jsonDecode(req.body);
+      prefs.setString('token', data['token']);
+
+      print('ข้อมูลid');
+      print(prefs.get('idm'));
+      headers?['Authorization'] = "bearer ${data['token']}";
+      EasyLoading.showSuccess('Great Success!');
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Page1()),
+          (Route<dynamic> route) => false);
+      prefs.setInt('idm', data['id']);
+    } else {
+      print('error');
+      EasyLoading.showError('Failed with Error');
+    }
+  });
 }

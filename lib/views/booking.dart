@@ -39,7 +39,6 @@ class _BookingState extends State<Booking> {
     print(data.length); //ทดสอบprint จำนวนของdata
   }
 
-  late AsyncSnapshot snapshot; //ยังไม่รู้จะใช้ยังไง
   @override
   Widget build(BuildContext context) {
     return Scaffold(

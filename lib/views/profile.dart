@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_appcare/views/login.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profiles extends StatefulWidget {
   const Profiles({Key? key}) : super(key: key);
@@ -182,7 +184,17 @@ class _ProfilesState extends State<Profiles> {
               primary: Color.fromARGB(255, 255, 255, 255),
               textStyle: const TextStyle(fontSize: 20),
             ),
-            onPressed: () {},
+            onPressed: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.remove('token');
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MyHomePage(),
+                    //แก้ตรงนี้--------------------------------------------------------------------------------------
+                  ),
+                  (route) => false);
+            },
             child: const Text('ออกจากระบบ'),
           ),
         ],
