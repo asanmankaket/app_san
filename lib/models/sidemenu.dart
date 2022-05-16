@@ -69,10 +69,10 @@ class _SideMenuState extends State<SideMenu> {
                 child: GestureDetector(
                   onTap: (() {
                     Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                        builder: (BuildContext context) =>
-                            Profiles(data: data)));
+                        context,
+                        MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                Profiles(data: data)));
                   }),
                   child: Row(
                     children: [
@@ -187,8 +187,8 @@ class _SideMenuState extends State<SideMenu> {
 }
 
 Future<dynamic> Getdata(dynamic idUser) async {
-  // Uri url = Uri.parse('http://165.22.63.114:3500/api/customer/11');
-  Uri url = Uri.parse('http://192.168.1.9:3200/api/customer/$idUser');
+  Uri url = Uri.parse('http://165.22.63.114:3500/api/customer/$idUser');
+  // Uri url = Uri.parse('http://192.168.1.9:3200/api/customer/$idUser');
   return await http
       .get(
     url,
