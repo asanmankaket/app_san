@@ -209,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
 Future CheckLogin(String username, String password, context) async {
   EasyLoading.show(status: 'loading...');
 
-  Uri url = Uri.parse('http://165.22.63.114:3500/api/customer/login');
+  Uri url = Uri.parse('http://165.22.63.114:3200/api/customer/login');
   // Uri url = Uri.parse('http://192.168.1.9:3200/api/customer/login');
   http
       .post(
@@ -228,7 +228,7 @@ Future CheckLogin(String username, String password, context) async {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => Page1()),
           (Route<dynamic> route) => false);
-      prefs.setInt('idm', data['id']);
+      // prefs.setInt('idm', data['id']);
     } else {
       print('error');
       EasyLoading.showError('Failed with Error');

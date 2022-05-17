@@ -16,7 +16,7 @@ class Booking extends StatefulWidget {
 
 class _BookingState extends State<Booking> {
   @override
-  dynamic data;
+  dynamic data, idUser;
 
   void initState() {
     super.initState();
@@ -29,7 +29,7 @@ class _BookingState extends State<Booking> {
     int? idUser = prefs.getInt(
         'idm'); //เอาตัวidของcustomerมาใช้กับหน้านี้แล้วเอาค่าไปใส่ในidUser
     dynamic item = await Getdata(idUser); //ส่งค่าไปยัง getdataหรือตัวรับapi
-
+    return idUser;
     setState(() {
       data = item;
     });
@@ -54,9 +54,9 @@ class _BookingState extends State<Booking> {
             startApi();
           },
           child: ListView.builder(
-            itemCount:
-                data?.length ?? 0, //เอาออกไปก่อนเพราะตัวdata.lengthยังพังอยู่
-            // itemCount: 3, //ใช้ตัวนี้แทนเพราะตัวdataพัง
+            // itemCount:
+            // data?.length ?? 0, //เอาออกไปก่อนเพราะตัวdata.lengthยังพังอยู่
+            itemCount: 3, //ใช้ตัวนี้แทนเพราะตัวdataพัง
             itemBuilder: (context, i) => InkWell(
               onTap: () {
                 Navigator.push(
@@ -95,28 +95,28 @@ class _BookingState extends State<Booking> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '${data[i]['title']} ${data[i]['fname']} ${data[i]['lname']}',
-                                    style: const TextStyle(fontSize: 15),
-                                  ),
-                                  Text(
-                                    'เริ่ม : ' +
-                                        DateFormat('dd-mm-yy KK:MM').format(
-                                            DateTime.parse(
-                                                '${data[i]['start_time']}')),
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  Text(
-                                    'ถึง :  ' +
-                                        DateFormat('dd-mm-yy KK:MM').format(
-                                            DateTime.parse(
-                                                '${data[i]['end_time']}')),
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
+                                  // Text(
+                                  //   '${data[i]['title']} ${data[i]['fname']} ${data[i]['lname']}',
+                                  //   style: const TextStyle(fontSize: 15),
+                                  // ),
+                                  // Text(
+                                  //   'เริ่ม : ' +
+                                  //       DateFormat('dd-mm-yy KK:MM').format(
+                                  //           DateTime.parse(
+                                  //               '${data[i]['start_time']}')),
+                                  //   style: const TextStyle(
+                                  //     fontSize: 16,
+                                  //   ),
+                                  // ),
+                                  // Text(
+                                  //   'ถึง :  ' +
+                                  //       DateFormat('dd-mm-yy KK:MM').format(
+                                  //           DateTime.parse(
+                                  //               '${data[i]['end_time']}')),
+                                  //   style: const TextStyle(
+                                  //     fontSize: 16,
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -134,7 +134,7 @@ class _BookingState extends State<Booking> {
 
 Future<dynamic> Getdata(dynamic idUser) async {
   Uri url = Uri.parse(
-      'http://165.22.63.114:3500/api/booking/cust/$idUser'); //รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง
+      'http://165.22.63.114:3200/api/booking/cust/$idUser'); //รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง
   // Uri url = Uri.parse(
   //     'http://192.168.1.9:3200/api/booking/cust/$idUser'); //รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง
   return await http
@@ -146,6 +146,7 @@ Future<dynamic> Getdata(dynamic idUser) async {
     if (req.statusCode == 200) {
       print(req.body);
       var data = jsonDecode(req.body);
+
       return data;
     } else {
       print('error');
