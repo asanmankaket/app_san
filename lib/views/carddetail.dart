@@ -55,7 +55,7 @@ class _CarddetailState extends State<Carddetail> {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             SizedBox(
                 child: Row(
@@ -76,11 +76,10 @@ class _CarddetailState extends State<Carddetail> {
                 SizedBox(
                   width: 120,
                 ),
-                TextButton(onPressed: () {}, child: const Text('แก้ไข'))
               ],
             )),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             Row(children: [
               Row(
@@ -93,15 +92,13 @@ class _CarddetailState extends State<Carddetail> {
                     color: Colors.blue,
                   ),
                   Text(
-                    '''   ${widget.data['adr1']} 
-    ${widget.data['adr2']} 
+                    '''   ${widget.data['adr1']} ${widget.data['adr2']} 
     ${widget.data['city']}''',
                     style: TextStyle(fontSize: 18),
                   ),
                 ],
               ),
               SizedBox(width: 50),
-              TextButton(onPressed: () {}, child: const Text('แก้ไข'))
             ]),
             SizedBox(
               height: 30,

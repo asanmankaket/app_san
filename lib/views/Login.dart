@@ -35,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
     print(token);
     if (prefs.getString('token') != null) {
       headers?['Authorization'] = "bearer ${prefs.getString('token')}";
+      print(headers);
       Navigator.pushNamedAndRemoveUntil(
           context, "/Page1", (Route<dynamic> route) => false);
     }

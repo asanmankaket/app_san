@@ -103,7 +103,6 @@ class _bookdetailState extends State<bookdetail> {
                       ),
                     ],
                   ),
-                  TextButton(onPressed: () {}, child: const Text('แก้ไข'))
                 ],
               ),
               SizedBox(
@@ -128,7 +127,6 @@ class _bookdetailState extends State<bookdetail> {
                       SizedBox(width: 162),
                     ],
                   ),
-                  TextButton(onPressed: () {}, child: const Text('แก้ไข'))
                 ],
               ),
               SizedBox(

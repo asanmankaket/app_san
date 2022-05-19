@@ -39,7 +39,6 @@ class _SideMenuState extends State<SideMenu> {
     setState(() {
       data = item;
     });
-    print(data);
   }
 
   @override
@@ -88,18 +87,18 @@ class _SideMenuState extends State<SideMenu> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              '${data['username']}',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              '${data['fname']}  ${data['lname']}',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
-                            )
+                            // Text(
+                            //   '${data['username']}',
+                            //   style: TextStyle(
+                            //       color: Colors.white,
+                            //       fontSize: 18,
+                            //       fontWeight: FontWeight.bold),
+                            // ),
+                            // Text(
+                            //   '${data['fname']}  ${data['lname']}',
+                            //   style:
+                            //       TextStyle(color: Colors.white, fontSize: 16),
+                            // )
                           ],
                         ),
                       )

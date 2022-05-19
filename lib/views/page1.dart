@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import '../models/sidemenu.dart';
 
 class Page1 extends StatefulWidget {
-  Page1({Key? key}) : super(key: key);
+  Page1({Key? key, data}) : super(key: key);
 
   @override
   State<Page1> createState() => _Page1State();
