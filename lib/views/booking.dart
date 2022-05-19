@@ -29,15 +29,9 @@ class _BookingState extends State<Booking> {
     int? idUser = prefs.getInt(
         'idm'); //เอาตัวidของcustomerมาใช้กับหน้านี้แล้วเอาค่าไปใส่ในidUser
     dynamic item = await Getdata(idUser); //ส่งค่าไปยัง getdataหรือตัวรับapi
-    return idUser;
     setState(() {
       data = item;
     });
-
-    print('หลังจากรับ:'); //ทดสอบprintตัวdataที่รับมาจากapi
-    print(data);
-    print('จำนวนdata:');
-    print(data.length); //ทดสอบprint จำนวนของdata
   }
 
   @override
@@ -146,7 +140,6 @@ Future<dynamic> Getdata(dynamic idUser) async {
     if (req.statusCode == 200) {
       print(req.body);
       var data = jsonDecode(req.body);
-
       return data;
     } else {
       print('error');

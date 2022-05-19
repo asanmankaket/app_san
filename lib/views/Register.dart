@@ -223,7 +223,6 @@ Future CheckRegister(String username, String password, String name,
   EasyLoading.show(status: 'loading...');
 
   Uri url = Uri.parse('http://165.22.63.114:3200/api/customer');
-  // Uri url = Uri.parse('http://192.168.1.9:3200/api/customer');
   http
       .post(
     url,
@@ -240,15 +239,11 @@ Future CheckRegister(String username, String password, String name,
       final prefs = await SharedPreferences.getInstance();
       var data = jsonDecode(req.body);
       prefs.setString('token', data['token']);
-
-      print('ข้อมูลid');
-      print(prefs.get('idm'));
       headers?['Authorization'] = "bearer ${data['token']}";
       EasyLoading.showSuccess('Great Success!');
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => Page1()),
           (Route<dynamic> route) => false);
-      prefs.setInt('idm', data['id']);
     } else {
       print('error');
       EasyLoading.showError('Failed with Error');

@@ -221,14 +221,12 @@ Future CheckLogin(String username, String password, context) async {
     if (req.statusCode == 200) {
       final prefs = await SharedPreferences.getInstance();
       var data = jsonDecode(req.body);
-
       prefs.setString('token', data['token']);
       headers?['Authorization'] = "bearer ${data['token']}";
       EasyLoading.showSuccess('Great Success!');
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => Page1()),
           (Route<dynamic> route) => false);
-      // prefs.setInt('idm', data['id']);
     } else {
       print('error');
       EasyLoading.showError('Failed with Error');
