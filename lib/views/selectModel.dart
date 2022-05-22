@@ -182,6 +182,7 @@ class _SelectBookingState extends State<SelectBooking> {
                         borderRadius: BorderRadius.all(Radius.circular(100))),
                   ),
                 ),
+                Text('')
               ],
             )),
       ),
