@@ -24,7 +24,10 @@ class _BookingState extends State<Booking> {
   }
 
   startApi() async {
-    dynamic item = await Getdata(); //ส่งค่าไปยัง getdataหรือตัวรับapi
+    final prefs =
+        await SharedPreferences.getInstance(); //เพิ่มตัวแชร์จากหน้าlogin
+    int? idUser = prefs.getInt('idm');
+    dynamic item = await Getdata(idUser); //ส่งค่าไปยัง getdataหรือตัวรับapi
     setState(() {
       data = item;
     });
@@ -122,9 +125,9 @@ class _BookingState extends State<Booking> {
   }
 }
 
-Future<dynamic> Getdata() async {
+Future<dynamic> Getdata(dynamic idUser) async {
   Uri url = Uri.parse(
-      'http://165.22.63.114:3200/api/booking/cust/'); //รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง
+      'http://165.22.63.114:3200/api/booking/cust/$idUser'); //รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง
   // Uri url = Uri.parse(
   //     'http://192.168.1.9:3200/api/booking/cust/$idUser'); //รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง
   return await http

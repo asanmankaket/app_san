@@ -1,6 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_appcare/models/DatePicker.dart';
+import 'package:flutter_appcare/views/selectModel.dart';
+
+import 'package:provider/provider.dart';
 
 class Carddetail extends StatefulWidget {
   const Carddetail({Key? key, required this.data}) : super(key: key);
@@ -11,6 +16,8 @@ class Carddetail extends StatefulWidget {
 }
 
 class _CarddetailState extends State<Carddetail> {
+  get taskNotifier => null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +36,7 @@ class _CarddetailState extends State<Carddetail> {
               child: CircleAvatar(
                 radius: 70,
                 backgroundColor: Color.fromARGB(255, 45, 134, 156),
-                // backgroundImage: ('${widget.data['image']}'),
+                // backgroundImage: ('widget.data['image']'),
               ),
             ),
             SizedBox(
@@ -113,7 +120,12 @@ class _CarddetailState extends State<Carddetail> {
                 primary: Color.fromARGB(255, 255, 255, 255),
                 textStyle: const TextStyle(fontSize: 20),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                        builder: (BuildContext context) => SelectBooking()));
+              },
               child: const Text(
                 'นัดเวลา',
               ),
@@ -122,5 +134,14 @@ class _CarddetailState extends State<Carddetail> {
         ),
       ),
     );
+  }
+}
+
+class DatePickerNotifier extends ChangeNotifier {
+  DateTime? _selectedDateTime;
+  DateTime? get selectDateTime => _selectedDateTime;
+  setDateTime({required DateTime candidateDateTime}) {
+    _selectedDateTime = candidateDateTime;
+    notifyListeners();
   }
 }

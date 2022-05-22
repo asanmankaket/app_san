@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_appcare/views/profile.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../configs/config.dart';
 import '../views/login.dart';
@@ -31,11 +32,8 @@ class _SideMenuState extends State<SideMenu> {
   }
 
   startApi() async {
-    final prefs =
-        await SharedPreferences.getInstance(); //เพิ่มตัวแชร์จากหน้าlogin
-    int? idUser = prefs.getInt(
-        'idm'); //เอาตัวidของcustomerมาใช้กับหน้านี้แล้วเอาค่าไปใส่ในidUser
-    dynamic item = await Getdata(idUser); //ส่งค่าไปยัง getdataหรือตัวรับapi
+    //เอาตัวidของcustomerมาใช้กับหน้านี้แล้วเอาค่าไปใส่ในidUser
+    dynamic item = await Getdata(); //ส่งค่าไปยัง getdataหรือตัวรับapi
     setState(() {
       data = item;
     });
@@ -87,18 +85,16 @@ class _SideMenuState extends State<SideMenu> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Text(
-                            //   '${data['username']}',
-                            //   style: TextStyle(
-                            //       color: Colors.white,
-                            //       fontSize: 18,
-                            //       fontWeight: FontWeight.bold),
-                            // ),
-                            // Text(
-                            //   '${data['fname']}  ${data['lname']}',
-                            //   style:
-                            //       TextStyle(color: Colors.white, fontSize: 16),
-                            // )
+                            data != null
+                                ? Text(
+                                    '''${data['username']}
+${data['fname']}  ${data['lname']}''',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                : Text(''),
                           ],
                         ),
                       )
@@ -185,7 +181,10 @@ class _SideMenuState extends State<SideMenu> {
   }
 }
 
-Future<dynamic> Getdata(dynamic idUser) async {
+Future<dynamic> Getdata() async {
+  final prefs =
+      await SharedPreferences.getInstance(); //เพิ่มตัวแชร์จากหน้าlogin
+  int? idUser = prefs.getInt('idm');
   Uri url = Uri.parse('http://165.22.63.114:3200/api/customer/$idUser');
   // Uri url = Uri.parse('http://192.168.1.9:3200/api/customer/$idUser');
   return await http

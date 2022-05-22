@@ -31,7 +31,6 @@ class _MyHomePageState extends State<MyHomePage> {
   CheckToken1() async {
     final prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
-
     print(token);
     if (prefs.getString('token') != null) {
       headers?['Authorization'] = "bearer ${prefs.getString('token')}";
@@ -223,6 +222,7 @@ Future CheckLogin(String username, String password, context) async {
       final prefs = await SharedPreferences.getInstance();
       var data = jsonDecode(req.body);
       prefs.setString('token', data['token']);
+      prefs.setInt('idm', data['idc']);
       headers?['Authorization'] = "bearer ${data['token']}";
       EasyLoading.showSuccess('Great Success!');
       Navigator.of(context).pushAndRemoveUntil(
