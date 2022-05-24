@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_appcare/models/registermodel.dart';
 import 'package:flutter_appcare/models/textformfieldmodel.dart';
 import 'package:flutter_appcare/views/page1.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -22,13 +21,15 @@ class PageOne extends StatefulWidget {
 }
 
 class _Register extends State<PageOne> {
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirmpassword = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController surname = TextEditingController();
+  TextEditingController picdate = TextEditingController();
+  TextEditingController pictime = TextEditingController();
+
   final _formkey = GlobalKey<FormState>();
-  TextEditingController? username,
-      password,
-      conpassword,
-      name,
-      surname,
-      picdate;
 
   DateTime? datenow = DateTime.now();
   @override
@@ -39,14 +40,16 @@ class _Register extends State<PageOne> {
           initialDate: datenow!,
           firstDate: DateTime(DateTime.now().year - 70),
           lastDate: DateTime(DateTime.now().year, DateTime.now().day));
-
+      // firstDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
+      // lastDate: DateTime(DateTime.now().year, DateTime.now().month, 30),
+      // );
       print(date);
 
       if (date != null) {
         setState(() {
           datenow = date;
-          // picdate.text = date.toString();
-          // picdate.text = DateFormat("dd/MM/yyyy").format(date);
+          picdate.text = date.toString();
+          picdate.text = DateFormat("dd/MM/yyyy").format(date);
         });
       }
     }
@@ -57,7 +60,7 @@ class _Register extends State<PageOne> {
       if (time != null) {
         setState(() {
           // picdate.text = date.toString();
-          // pictime.text = '${time.hour}:${time.minute}';
+          pictime.text = '${time.hour}:${time.minute}';
         });
       }
     }
@@ -88,7 +91,6 @@ class _Register extends State<PageOne> {
                   height: 20,
                 ),
                 TextFormField(
-                  controller: username,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please fill you Usename in the blank';
@@ -125,11 +127,17 @@ class _Register extends State<PageOne> {
                         borderRadius: BorderRadius.all(Radius.circular(50))),
                   ),
                 ),
+                // TextFormFieldModel(
+                //   // key: _formkey,
+                //   labeltext: 'Usename',
+                //   controller: username,
+                //   // as: 'ใส่ส่ะ',
+                //   // validator:(String value){},
+                // ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
-                  controller: password,
                   validator: (value) {
                     if (value!.length < 6) {
                       return 'Password More 6 Charactor';
@@ -166,11 +174,14 @@ class _Register extends State<PageOne> {
                         borderRadius: BorderRadius.all(Radius.circular(50))),
                   ),
                 ),
+                // TextFormFieldModel(
+                //   labeltext: 'password',
+                //   controller: password,
+                // ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
-                  controller: conpassword,
                   validator: (value) {
                     if (value!.length < 6) {
                       return 'Confirm Password More 6 Charactor';
@@ -207,11 +218,14 @@ class _Register extends State<PageOne> {
                         borderRadius: BorderRadius.all(Radius.circular(50))),
                   ),
                 ),
+                // TextFormFieldModel(
+                //   labeltext: 'confirm password',
+                //   controller: confirmpassword,
+                // ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
-                  controller: name,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please fill you name in the blank';
@@ -248,11 +262,14 @@ class _Register extends State<PageOne> {
                         borderRadius: BorderRadius.all(Radius.circular(50))),
                   ),
                 ),
+                // TextFormFieldModel(
+                //   labeltext: 'name',
+                //   controller: name,
+                // ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
-                  controller: surname,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please fill you surname in the blank';
@@ -260,6 +277,11 @@ class _Register extends State<PageOne> {
                       return null;
                     }
                   },
+                  // controller: surname,
+                  // readOnly: true,
+                  // onTap: () {
+                  //   // newDate();
+                  // },
                   style: TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255), fontSize: 17),
                   keyboardType: TextInputType.text,
@@ -289,11 +311,15 @@ class _Register extends State<PageOne> {
                         borderRadius: BorderRadius.all(Radius.circular(50))),
                   ),
                 ),
+
+                // TextFormFieldModel(
+                //   labeltext: 'surname',
+                //   controller: surname,
+                // ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
-                  controller: picdate,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please fill you date in the blank';
@@ -301,6 +327,7 @@ class _Register extends State<PageOne> {
                       return null;
                     }
                   },
+                  controller: picdate,
                   readOnly: true,
                   onTap: () {
                     newDate();
@@ -337,6 +364,37 @@ class _Register extends State<PageOne> {
                 SizedBox(
                   height: 10,
                 ),
+                // TextFormField(
+                //   controller: pictime,
+
+                //   readOnly: true,
+                //   onTap: () {
+                //     newtime();
+                //   },
+                //   style: TextStyle(
+                //       color: Color.fromARGB(255, 255, 255, 255), fontSize: 17),
+                //   keyboardType: TextInputType.text,
+                //   onChanged: (value) {
+                //     print(value);
+                //   },
+                //   // ignore: prefer_const_constructors
+                //   decoration: InputDecoration(
+                //     labelText: 'time',
+                //     labelStyle: TextStyle(color: Colors.white),
+                //     hintText: 'time',
+                //     hintStyle:
+                //         TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                //     enabledBorder: OutlineInputBorder(
+                //       borderSide:
+                //           BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
+                //       borderRadius: BorderRadius.all(Radius.circular(50)),
+                //     ),
+                //     focusedBorder: OutlineInputBorder(
+                //         borderSide:
+                //             BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
+                //         borderRadius: BorderRadius.all(Radius.circular(50))),
+                //   ),
+                // ),
                 SizedBox(
                   height: 5,
                 ),
@@ -347,8 +405,8 @@ class _Register extends State<PageOne> {
                     }
                     print('สมัครสมาชิก');
 
-                    await CheckRegister(
-                        username, password, name, surname, picdate, context);
+                    await CheckRegister(username.text, password.text, name.text,
+                        surname.text, picdate.text, context);
 
                     // Navigator.pushNamedAndRemoveUntil(context,
                     //     "/Page1", (Route<dynamic> route) => false);
@@ -376,8 +434,8 @@ class _Register extends State<PageOne> {
   }
 }
 
-Future CheckRegister(
-    username, password, name, surname, picdate, context) async {
+Future CheckRegister(String username, String password, String name,
+    String surname, String picdate, context) async {
   EasyLoading.show(status: 'loading...');
 
   Uri url = Uri.parse('http://165.22.63.114:3200/api/customer');
@@ -397,11 +455,15 @@ Future CheckRegister(
       final prefs = await SharedPreferences.getInstance();
       var data = jsonDecode(req.body);
       prefs.setString('token', data['token']);
+
+      print('ข้อมูลid');
+      print(prefs.get('idm'));
       headers?['Authorization'] = "bearer ${data['token']}";
       EasyLoading.showSuccess('Great Success!');
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => Page1()),
           (Route<dynamic> route) => false);
+      prefs.setInt('idm', data['id']);
     } else {
       print('error');
       EasyLoading.showError('Failed with Error');
