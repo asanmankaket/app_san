@@ -50,7 +50,7 @@ class _SideMenuState extends State<SideMenu> {
           Container(
             padding: EdgeInsets.symmetric(vertical: 20),
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 45, 134, 156),
+              color: Color.fromARGB(255, 160, 42, 207),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.5),
@@ -113,7 +113,7 @@ ${data['fname']}  ${data['lname']}''',
                   context,
                   Icon(Icons.house),
                   //แก้ตรงนี้--------------------------------------------------------------------------------------
-                  'หาพี่เลี้ยง',
+                  'หน้าหลัก',
                   '/Page1',
                 ),
                 routeItem(
@@ -142,7 +142,7 @@ ${data['fname']}  ${data['lname']}''',
                   // leading: Icon(FontAwesomeIcons.rightFromBracket),
                   title: Text(
                     'ออกจากระบบ',
-                    style: TextStyle(color: Colors.red),
+                    style: TextStyle(color: Colors.red,fontSize: 20,fontWeight: FontWeight.bold),
                   ), //แก้ตรงนี้--------------------------------------------------------------------------------------
                   onTap: () async {
                     SharedPreferences prefs =

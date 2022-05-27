@@ -38,7 +38,7 @@ class _BookingState extends State<Booking> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('นัดหมาย'),
-        backgroundColor: const Color.fromARGB(255, 45, 134, 156),
+        backgroundColor: Color.fromARGB(255, 160, 42, 207),
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -60,7 +60,7 @@ class _BookingState extends State<Booking> {
               },
               child: Card(
                 elevation: 10,
-                color: Color.fromARGB(255, 150, 217, 234),
+                color: Color.fromARGB(255, 229, 179, 249),
                 shadowColor: Color.fromARGB(255, 10, 91, 111),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),

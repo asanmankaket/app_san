@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 63, 217, 255),
+        backgroundColor: Color.fromARGB(255, 160, 42, 207),
         body: SafeArea(
           child: SingleChildScrollView(
             child: SizedBox(
@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     color: Color.fromARGB(255, 255, 255, 255)),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 1, 135, 197),
+                                    color: Color.fromARGB(255, 255, 255, 255),
                                   ),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50)),

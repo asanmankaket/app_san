@@ -38,8 +38,8 @@ class _Page1State extends State<Page1> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 227, 227, 227),
       appBar: AppBar(
-        title: Text('หาพี่เลี้ยง'),
-        backgroundColor: Color.fromARGB(255, 45, 134, 156),
+        title: Text('หน้าหลัก'),
+        backgroundColor: Color.fromARGB(255, 160, 42, 207),
       ),
       body: SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -60,10 +60,10 @@ class _Page1State extends State<Page1> {
                 },
                 child: Card(
                   elevation: 10,
-                  color: Color.fromARGB(255, 150, 217, 234),
+                  color: Color.fromARGB(255, 229, 179, 249),
                   shadowColor: Color.fromARGB(255, 10, 91, 111),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,10 +81,10 @@ class _Page1State extends State<Page1> {
                                 // color: Color.fromARGB(255, 150, 217, 234),
                                 // ignore: prefer_const_constructors
                                 child: CircleAvatar(
-                                    // backgroundColor:
-                                    //     Color.fromARGB(255, 150, 217, 234),
-                                    // foregroundColor:
-                                    //     Color.fromARGB(255, 150, 217, 234),
+                                    backgroundColor:
+                                        Color.fromARGB(255, 211, 211, 211),
+                                    foregroundColor:
+                                        Color.fromARGB(255, 211, 211, 211),
                                     // ignore: prefer_const_constructors
                                     // backgroundImage:
                                     //     AssetImage('assets/image/$i.jpeg'),
