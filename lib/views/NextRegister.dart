@@ -1,13 +1,15 @@
-// ignore_for_file: prefer_const_constructors, unused_element, avoid_print, duplicate_ignore, dead_code
+// ignore_for_file: prefer_const_constructors, unused_element, avoid_print, duplicate_ignore, dead_code, deprecated_member_use, sized_box_for_whitespace, empty_catches, unused_local_variable
 
 import 'dart:convert';
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_appcare/models/textformfieldmodel.dart';
-import 'package:flutter_appcare/views/page1.dart';
+import 'package:flutter_appcare/views/mainpage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -32,28 +34,42 @@ class _Register extends State<NextRegister> {
 
   final _formkey = GlobalKey<FormState>();
 
+  File? file;
+
   DateTime? datenow = DateTime.now();
+
+  String? DropdownValue = 'address';
+  List<DropdownMenuItem<String>>? items = [
+    const DropdownMenuItem(
+      value: 'address',
+      child: Text(
+        'สถานที่',
+        style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+      ),
+    )
+  ];
+
   @override
   Widget build(BuildContext context) {
-    void newDate() async {
-      DateTime? date = await showDatePicker(
-          context: context,
-          initialDate: datenow!,
-          firstDate: DateTime(DateTime.now().year - 70),
-          lastDate: DateTime(DateTime.now().year, DateTime.now().day));
-      // firstDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
-      // lastDate: DateTime(DateTime.now().year, DateTime.now().month, 30),
-      // );
-      print(date);
+    // void newDate() async {
+    //   DateTime? date = await showDatePicker(
+    //       context: context,
+    //       initialDate: datenow!,
+    //       firstDate: DateTime(DateTime.now().year - 70),
+    //       lastDate: DateTime(DateTime.now().year, DateTime.now().day));
+    //   // firstDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
+    //   // lastDate: DateTime(DateTime.now().year, DateTime.now().month, 30),
+    //   // );
+    //   print(date);
 
-      if (date != null) {
-        setState(() {
-          datenow = date;
-          picdate.text = date.toString();
-          picdate.text = DateFormat("dd/MM/yyyy").format(date);
-        });
-      }
-    }
+    //   if (date != null) {
+    //     setState(() {
+    //       datenow = date;
+    //       picdate.text = date.toString();
+    //       picdate.text = DateFormat("dd/MM/yyyy").format(date);
+    //     });
+    //   }
+    // }
 
     void newtime() async {
       TimeOfDay? time =
@@ -67,7 +83,11 @@ class _Register extends State<NextRegister> {
     }
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 63, 217, 255),
+      backgroundColor: Color.fromARGB(255, 205, 94, 249),
+      appBar: AppBar(
+        title: Text('สมัครสมาชิก'),
+        backgroundColor: Color.fromARGB(255, 160, 42, 207),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -78,23 +98,12 @@ class _Register extends State<NextRegister> {
               width: MediaQuery.of(context).size.width,
               child: Column(children: [
                 SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  'Register',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 TextFormField(
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please fill you Usename in the blank';
+                      return 'โปรดกรอกหมายเลขโทรศัพท์';
                     } else {
                       return null;
                     }
@@ -115,17 +124,22 @@ class _Register extends State<NextRegister> {
                         TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     errorBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    prefixIcon: Icon(
+                      Icons.add_call,
+                      size: 30,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 // TextFormFieldModel(
@@ -136,12 +150,12 @@ class _Register extends State<NextRegister> {
                 //   // validator:(String value){},
                 // ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 TextFormField(
                   validator: (value) {
                     if (value!.length < 6) {
-                      return 'Password More 6 Charactor';
+                      return 'โปรดกรอกหมายเลขบัตรประชาชน';
                     } else {
                       return null;
                     }
@@ -162,17 +176,22 @@ class _Register extends State<NextRegister> {
                         TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     errorBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    prefixIcon: Icon(
+                      Icons.assignment_ind,
+                      size: 30,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 // TextFormFieldModel(
@@ -180,56 +199,40 @@ class _Register extends State<NextRegister> {
                 //   controller: password,
                 // ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
-                  TextFormField(
-                    validator: (value) {
-                      if (value!.length < 6) {
-                        return 'Confirm Password More 6 Charactor';
-                      } else {
-                        return null;
-                      }
-                    },
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 255, 255, 255), fontSize: 17),
-                    keyboardType: TextInputType.text,
-                    onChanged: (value) {
-                      print(value);
-                    },
-                    // ignore: prefer_const_constructors
-                    decoration: InputDecoration(
-                      labelText: 'confirm password',
-                      labelStyle: TextStyle(color: Colors.white),
-                      helperText: 'Tyep confirm password for display',
-                      hintText: 'confirm password',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(
+                        Icons.add_a_photo,
+                        size: 36.0,
                       ),
-                      errorBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 255, 255, 255)),
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
+                      onPressed: () => chooseImage(ImageSource.camera),
                     ),
-                  ),
-                // TextFormFieldModel(
-                //   labeltext: 'confirm password',
-                //   controller: confirmpassword,
-                // ),
+                    Container(
+                      width: 200.0,
+                      child: file == null
+                          ? Image.asset('assets/images/one.jpg')
+                          : Image.file(file!),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.add_photo_alternate,
+                        size: 36.0,
+                      ),
+                      onPressed: () => chooseImage(ImageSource.gallery),
+                    ),
+                  ],
+                ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 TextFormField(
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please fill you name in the blank';
+                    if (value!.length < 6) {
+                      return 'กรุณาตรวจสอบตำเเหน่งของท่าน';
                     } else {
                       return null;
                     }
@@ -242,162 +245,115 @@ class _Register extends State<NextRegister> {
                   },
                   // ignore: prefer_const_constructors
                   decoration: InputDecoration(
-                    labelText: 'name',
+                    labelText: 'ตำเเหน่ง',
                     labelStyle: TextStyle(color: Colors.white),
-                    helperText: 'Tyep you name for display',
-                    hintText: 'name',
+                    helperText: 'Tyep you password more 6 Charactor',
+                    hintText: 'ตำเเหน่ง',
                     hintStyle:
                         TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     errorBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                  ),
-                ),
-                // TextFormFieldModel(
-                //   labeltext: 'name',
-                //   controller: name,
-                // ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please fill you surname in the blank';
-                    } else {
-                      return null;
-                    }
-                  },
-                  // controller: surname,
-                  // readOnly: true,
-                  // onTap: () {
-                  //   // newDate();
-                  // },
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 17),
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) {
-                    print(value);
-                  },
-                  // ignore: prefer_const_constructors
-                  decoration: InputDecoration(
-                    labelText: 'surname',
-                    labelStyle: TextStyle(color: Colors.white),
-                    helperText: 'Tyep you surname for display',
-                    hintText: 'surname',
-                    hintStyle:
-                        TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    prefixIcon: Icon(
+                      Icons.badge,
+                      size: 30,
+                      color: Colors.white,
                     ),
-                    errorBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                  ),
-                ),
-
-                // TextFormFieldModel(
-                //   labeltext: 'surname',
-                //   controller: surname,
-                // ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please fill you date in the blank';
-                    } else {
-                      return null;
-                    }
-                  },
-                  controller: picdate,
-                  readOnly: true,
-                  onTap: () {
-                    newDate();
-                  },
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 17),
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) {
-                    print(value);
-                  },
-                  // ignore: prefer_const_constructors
-                  decoration: InputDecoration(
-                    labelText: 'date',
-                    labelStyle: TextStyle(color: Colors.white),
-                    helperText: 'Tyep you date for display',
-                    hintText: 'date',
-                    hintStyle:
-                        TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color.fromARGB(255, 206, 6, 6)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                // TextFormField(
-                //   controller: pictime,
-
-                //   readOnly: true,
-                //   onTap: () {
-                //     newtime();
-                //   },
-                //   style: TextStyle(
-                //       color: Color.fromARGB(255, 255, 255, 255), fontSize: 17),
-                //   keyboardType: TextInputType.text,
-                //   onChanged: (value) {
-                //     print(value);
-                //   },
-                //   // ignore: prefer_const_constructors
-                //   decoration: InputDecoration(
-                //     labelText: 'time',
-                //     labelStyle: TextStyle(color: Colors.white),
-                //     hintText: 'time',
-                //     hintStyle:
-                //         TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                //     enabledBorder: OutlineInputBorder(
-                //       borderSide:
-                //           BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                //       borderRadius: BorderRadius.all(Radius.circular(50)),
-                //     ),
-                //     focusedBorder: OutlineInputBorder(
-                //         borderSide:
-                //             BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
-                //         borderRadius: BorderRadius.all(Radius.circular(50))),
-                //   ),
-                // ),
+                TextFormField(
+                  validator: (value) {
+                    if (value!.length < 6) {
+                      return 'กรุณากรอกทักษะของท่านให้เรียบร้อย';
+                    } else {
+                      return null;
+                    }
+                  },
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 17),
+                  keyboardType: TextInputType.text,
+                  onChanged: (value) {
+                    print(value);
+                  },
+                  // ignore: prefer_const_constructors
+                  decoration: InputDecoration(
+                    labelText: 'ทักษะ',
+                    labelStyle: TextStyle(color: Colors.white),
+                    helperText: 'Tyep you password more 6 Charactor',
+                    hintText: 'ทักษะ',
+                    hintStyle:
+                        TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    prefixIcon: Icon(
+                      Icons.handyman,
+                      size: 30,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
                 SizedBox(
-                  height: 5,
+                  height: 10,
+                ),
+                DropdownButtonFormField<String>(
+                  value: DropdownValue,
+                  items: items,
+                  onChanged: (value) {
+                    print(value);
+                    setState(() {
+                      DropdownValue = value;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'สถานที่',
+                    helperText: 'Tyep you password more 6 Charactor',
+                    labelStyle: TextStyle(color: Colors.white),
+                    hintStyle: TextStyle(color: Colors.white),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 255, 255, 255), width: 1),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    errorBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 255, 255, 255), width: 1),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    prefixIcon: Icon(
+                      Icons.location_on,
+                      size: 30,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 ElevatedButton(
                   onPressed: () async {
@@ -409,7 +365,7 @@ class _Register extends State<NextRegister> {
                     // context,
                     // MaterialPageRoute<void>(
                     //     builder: (BuildContext context) => NextRegister()));
-                    
+
                     print('สมัครสมาชิก');
 
                     await CheckRegister(username.text, password.text, name.text,
@@ -441,6 +397,34 @@ class _Register extends State<NextRegister> {
   }
 }
 
+Future<Null> chooseImage(ImageSource imageSource) async {
+  try {
+    var object = await ImagePicker()
+        .getImage(source: imageSource, maxHeight: 800.0, maxWidth: 800.0);
+
+    setState(() {
+      File file = File(object!.path);
+    });
+  } catch (e) {}
+}
+
+void setState(Null Function() param0) {}
+
+Widget grorpImage() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: <Widget>[
+      IconButton(
+        icon: Icon(
+          Icons.add_a_photo,
+          size: 36.0,
+        ),
+        onPressed: () {},
+      ),
+    ],
+  );
+}
+
 Future CheckRegister(String username, String password, String name,
     String surname, String picdate, context) async {
   EasyLoading.show(status: 'loading...');
@@ -468,7 +452,7 @@ Future CheckRegister(String username, String password, String name,
       headers?['Authorization'] = "bearer ${data['token']}";
       EasyLoading.showSuccess('Great Success!');
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Page1()),
+          MaterialPageRoute(builder: (context) => MainPage()),
           (Route<dynamic> route) => false);
       prefs.setInt('idm', data['id']);
     } else {

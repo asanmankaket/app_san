@@ -114,7 +114,7 @@ ${data['fname']}  ${data['lname']}''',
                   Icon(Icons.house),
                   //แก้ตรงนี้--------------------------------------------------------------------------------------
                   'หน้าหลัก',
-                  '/Page1',
+                  '/MainPage',
                 ),
                 routeItem(
                   context,
@@ -185,7 +185,7 @@ Future<dynamic> Getdata() async {
   final prefs =
       await SharedPreferences.getInstance(); //เพิ่มตัวแชร์จากหน้าlogin
   int? idUser = prefs.getInt('idm');
-  Uri url = Uri.parse('http://165.22.63.114:3200/api/customer/$idUser');
+  Uri url = Uri.parse('http://206.189.92.71:3200/api/mentor/$idUser');
   // Uri url = Uri.parse('http://192.168.1.9:3200/api/customer/$idUser');
   return await http
       .get(

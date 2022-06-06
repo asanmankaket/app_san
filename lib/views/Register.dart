@@ -6,7 +6,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_appcare/models/textformfieldmodel.dart';
-import 'package:flutter_appcare/views/page1.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,22 +38,16 @@ class _Register extends State<PageOne> {
       DateTime? date = await showDatePicker(
           context: context,
           initialDate: datenow!,
-          firstDate: DateTime(DateTime.now().year - 70),
-          lastDate: DateTime(DateTime.now().year, DateTime.now().day));
-      // firstDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
-      // lastDate: DateTime(DateTime.now().year, DateTime.now().month, 30),
-      // );
-      print(date);
-
+          firstDate: DateTime(DateTime.now().year, DateTime.now().month, 1),
+          lastDate: DateTime(DateTime.now().year, DateTime.now().month, 30));
       if (date != null) {
         setState(() {
           datenow = date;
-          picdate.text = date.toString();
           picdate.text = DateFormat("dd/MM/yyyy").format(date);
+          DateFormat("dd/MM/yyyy").format(date);
         });
       }
     }
-
     void newtime() async {
       TimeOfDay? time =
           await showTimePicker(context: context, initialTime: TimeOfDay.now());
@@ -67,7 +60,11 @@ class _Register extends State<PageOne> {
     }
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 63, 217, 255),
+      backgroundColor: Color.fromARGB(255, 205, 94, 249),
+      appBar: AppBar(
+        title: Text('สมัครสมาชิก'),
+        backgroundColor: Color.fromARGB(255, 160, 42, 207),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -78,7 +75,7 @@ class _Register extends State<PageOne> {
               width: MediaQuery.of(context).size.width,
               child: Column(children: [
                 SizedBox(
-                  height: 50,
+                  height: 20,
                 ),
                 Text(
                   'Register',
@@ -107,26 +104,30 @@ class _Register extends State<PageOne> {
                   },
                   // ignore: prefer_const_constructors
                   decoration: InputDecoration(
-                    labelText: 'Usename',
-                    labelStyle: TextStyle(color: Colors.white),
-                    helperText: 'Tyep you Usename for display',
-                    hintText: 'Usename',
-                    hintStyle:
-                        TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                    focusedBorder: OutlineInputBorder(
+                      labelText: 'Usename',
+                      labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                      helperText: 'Tyep you Usename for display',
+                      hintText: 'Usename',
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                      enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                  ),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 255, 255, 255)),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      prefixIcon: Icon(
+                        Icons.account_circle,
+                        size: 30,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      )),
                 ),
                 // TextFormFieldModel(
                 //   // key: _formkey,
@@ -136,7 +137,7 @@ class _Register extends State<PageOne> {
                 //   // validator:(String value){},
                 // ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 TextFormField(
                   validator: (value) {
@@ -155,24 +156,29 @@ class _Register extends State<PageOne> {
                   // ignore: prefer_const_constructors
                   decoration: InputDecoration(
                     labelText: 'password',
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     helperText: 'Tyep you password more 6 Charactor',
                     hintText: 'password',
                     hintStyle:
                         TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     errorBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      size: 30,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
                   ),
                 ),
                 // TextFormFieldModel(
@@ -180,7 +186,7 @@ class _Register extends State<PageOne> {
                 //   controller: password,
                 // ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 TextFormField(
                   validator: (value) {
@@ -199,24 +205,29 @@ class _Register extends State<PageOne> {
                   // ignore: prefer_const_constructors
                   decoration: InputDecoration(
                     labelText: 'confirm password',
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     helperText: 'Tyep confirm password for display',
                     hintText: 'confirm password',
                     hintStyle:
                         TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     errorBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      size: 30,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
                   ),
                 ),
                 // TextFormFieldModel(
@@ -224,7 +235,7 @@ class _Register extends State<PageOne> {
                 //   controller: confirmpassword,
                 // ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 TextFormField(
                   validator: (value) {
@@ -243,24 +254,29 @@ class _Register extends State<PageOne> {
                   // ignore: prefer_const_constructors
                   decoration: InputDecoration(
                     labelText: 'name',
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     helperText: 'Tyep you name for display',
                     hintText: 'name',
                     hintStyle:
                         TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     errorBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    prefixIcon: Icon(
+                      Icons.person,
+                      size: 30,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
                   ),
                 ),
                 // TextFormFieldModel(
@@ -284,7 +300,7 @@ class _Register extends State<PageOne> {
                   //   // newDate();
                   // },
                   style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 17),
+                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 17),
                   keyboardType: TextInputType.text,
                   onChanged: (value) {
                     print(value);
@@ -292,24 +308,29 @@ class _Register extends State<PageOne> {
                   // ignore: prefer_const_constructors
                   decoration: InputDecoration(
                     labelText: 'surname',
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     helperText: 'Tyep you surname for display',
                     hintText: 'surname',
                     hintStyle:
                         TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     errorBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    prefixIcon: Icon(
+                      Icons.person,
+                      size: 30,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
                   ),
                 ),
 
@@ -318,7 +339,7 @@ class _Register extends State<PageOne> {
                 //   controller: surname,
                 // ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 TextFormField(
                   validator: (value) {
@@ -334,7 +355,7 @@ class _Register extends State<PageOne> {
                     newDate();
                   },
                   style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 17),
+                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 17),
                   keyboardType: TextInputType.text,
                   onChanged: (value) {
                     print(value);
@@ -342,29 +363,35 @@ class _Register extends State<PageOne> {
                   // ignore: prefer_const_constructors
                   decoration: InputDecoration(
                     labelText: 'date',
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     helperText: 'Tyep you date for display',
                     hintText: 'date',
                     hintStyle:
                         TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(color: Color.fromARGB(255, 62, 144, 202)),
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     errorBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: Color.fromARGB(255, 206, 6, 6)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    prefixIcon: Icon(
+                      Icons.date_range,
+                      size: 30,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
+
                 // TextFormField(
                 //   controller: pictime,
 
@@ -406,11 +433,11 @@ class _Register extends State<PageOne> {
                     }
 
                     Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                        builder: (BuildContext context) => NextRegister()));
-                    
-                    print('สมัครสมาชิก');
+                        context,
+                        MaterialPageRoute<void>(
+                            builder: (BuildContext context) => NextRegister()));
+
+                    print('next');
 
                     // await CheckRegister(username.text, password.text, name.text,
                     //     surname.text, picdate.text, context);
@@ -440,6 +467,12 @@ class _Register extends State<PageOne> {
     );
   }
 }
+
+// Widget grorpImage() {
+//   return Row(
+    
+//   );
+// }
 
 // Future CheckRegister(String username, String password, String name,
 //     String surname, String picdate, context) async {

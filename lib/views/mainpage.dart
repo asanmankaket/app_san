@@ -2,23 +2,23 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_appcare/views/book_detail.dart';
+import 'package:flutter_appcare/views/carddetail.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/sidemenu.dart';
-import 'mainpage.dart';
 
-class Booking extends StatefulWidget {
-  const Booking({Key? key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
 
   @override
-  State<Booking> createState() => _BookingState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _BookingState extends State<Booking> {
-  @override
+class _MainPageState extends State<MainPage> {
   dynamic data;
 
+  @override
   void initState() {
     super.initState();
     startApi();
@@ -28,7 +28,7 @@ class _BookingState extends State<Booking> {
     final prefs =
         await SharedPreferences.getInstance(); //เพิ่มตัวแชร์จากหน้าlogin
     int? idUser = prefs.getInt('idm');
-    dynamic item = await Getdata(idUser); //ส่งค่าไปยัง getdataหรือตัวรับapi
+    dynamic item = await getdata(idUser); //ส่งค่าไปยัง getdataหรือตัวรับapi
     setState(() {
       data = item;
     });
@@ -37,26 +37,9 @@ class _BookingState extends State<Booking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('นัดหมาย'),
-        backgroundColor: Color.fromARGB(255, 160, 42, 207),
-        // actions: <Widget>[
-        //   IconButton(
-        //     icon: Icon(
-        //       Icons.timelapse_sharp,
-        //       color: Colors.white,
-        //     ),
-        //     onPressed: () {
-        //       // Navigator.push(
-        //       //     context,
-        //       //     MaterialPageRoute<void>(
-        //       //         builder: (BuildContext context) => WaitingBooking()));
-
-        //       // do something
-        //     },
-        //   )
-        // ],
+        title: const Text('รอการยืนยัน'),
+        backgroundColor: const Color.fromARGB(255, 160, 42, 207),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
@@ -76,18 +59,14 @@ class _BookingState extends State<Booking> {
                       context,
                       MaterialPageRoute<void>(
                           builder: (BuildContext context) =>
-                              bookdetail(data: data[i])));
+                              Carddetail(data: data[i])));
                 },
                 child: Card(
                   elevation: 10,
-                  color: Color.fromARGB(255, 205, 94, 249),
-                  shadowColor: Color.fromARGB(255, 10, 91, 111),
+                  color:  Color.fromARGB(255, 205, 94, 249),
+                  shadowColor: const Color.fromARGB(255, 10, 91, 111),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(27),
-                    side: BorderSide(
-                      color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.5),
-                      width: 1,
-                    ),
                   ),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,23 +76,18 @@ class _BookingState extends State<Booking> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               const SizedBox(
-                                width: 20,
+                                width: 15,
                               ),
                               const SizedBox(
                                 width: 55.0,
                                 height: 55.0,
-                                child: CircleAvatar(
-                                  backgroundColor:
-                                      Color.fromARGB(255, 211, 211, 211),
-                                  foregroundColor:
-                                      Color.fromARGB(255, 211, 211, 211),
-                                ),
+                                child: CircleAvatar(),
                               ),
                               const SizedBox(
                                 width: 15,
                               ),
                               Container(
-                                padding: const EdgeInsets.all(30),
+                                padding: const EdgeInsets.all(22),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -150,28 +124,23 @@ class _BookingState extends State<Booking> {
           ),
         ),
       ),
-      drawer: SideMenu(), //หน้าปุ่มsidemenu
+      drawer: SideMenu(),//หน้าปุ่มsidemenu
     );
   }
 }
 
-Future<dynamic> Getdata(dynamic idUser) async {
+Future<dynamic> getdata(dynamic idUser) async {
   Uri url = Uri.parse(
-      'http://206.189.92.71:3200/api/booking/men/72/$idUser '); //รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง
-  // Uri url = Uri.parse(
-  //     'http://192.168.1.9:3200/api/booking/cust/$idUser'); //รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง
+      'http://206.189.92.71:3200/api/booking/men/71/$idUser'); //รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง รับค่ามาจากiduser หรือตัวที่แชร์มาจากหน้าlogin ส่งไปยังurlเพื่อเช็คว่าคนนี้มีนัดหมายใครบ้าง
   return await http
       .get(
     url,
   )
       .then((req) async {
-    print(req.statusCode);
     if (req.statusCode == 200) {
-      print(req.body);
       var data = jsonDecode(req.body);
       return data;
     } else {
-      print('error');
       return null;
     }
   });

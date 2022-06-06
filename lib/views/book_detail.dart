@@ -22,7 +22,7 @@ class _bookdetailState extends State<bookdetail> {
         backgroundColor: Color.fromARGB(255, 160, 42, 207),
       ),
       body: SafeArea(
-        child: Container(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(

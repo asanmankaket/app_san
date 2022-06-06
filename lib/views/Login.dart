@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter_appcare/configs/config.dart';
-import 'package:flutter_appcare/views/page1.dart';
+import 'package:flutter_appcare/views/mainpage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
       headers?['Authorization'] = "bearer ${prefs.getString('token')}";
       print(headers);
       Navigator.pushNamedAndRemoveUntil(
-          context, "/Page1", (Route<dynamic> route) => false);
+          context, "/MainPage", (Route<dynamic> route) => false);
     }
   }
 
@@ -209,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
 Future CheckLogin(String username, String password, context) async {
   EasyLoading.show(status: 'loading...');
 
-  Uri url = Uri.parse('http://165.22.63.114:3200/api/customer/login');
+  Uri url = Uri.parse('http://206.189.92.71:3200/api/mentor/login');
   // Uri url = Uri.parse('http://192.168.1.9:3200/api/customer/login');
   http
       .post(
@@ -222,11 +222,11 @@ Future CheckLogin(String username, String password, context) async {
       final prefs = await SharedPreferences.getInstance();
       var data = jsonDecode(req.body);
       prefs.setString('token', data['token']);
-      prefs.setInt('idm', data['idc']);
+      prefs.setInt('idm', data['idm']);
       headers?['Authorization'] = "bearer ${data['token']}";
       EasyLoading.showSuccess('Great Success!');
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Page1()),
+          MaterialPageRoute(builder: (context) => MainPage()),
           (Route<dynamic> route) => false);
     } else {
       print('error');

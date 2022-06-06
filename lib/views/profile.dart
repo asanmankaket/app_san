@@ -31,7 +31,7 @@ class _ProfilesState extends State<Profiles> {
     return Scaffold(
       appBar: AppBar(
         title: Text('ข้อมูลส่วนตัว'),
-        backgroundColor: Color.fromARGB(255, 45, 134, 156),
+        backgroundColor: Color.fromARGB(255, 160, 42, 207),
       ),
       body: Column(
         children: [
