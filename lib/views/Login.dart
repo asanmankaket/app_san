@@ -91,9 +91,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       TextField(
-                                        autocorrect: false,
-                                        autofocus: false,
-                                        obscureText: true,
                                         controller: username,
                                         style: TextStyle(
                                             color: Color.fromARGB(
