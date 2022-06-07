@@ -48,6 +48,7 @@ class _Register extends State<PageOne> {
         });
       }
     }
+
     void newtime() async {
       TimeOfDay? time =
           await showTimePicker(context: context, initialTime: TimeOfDay.now());
@@ -105,7 +106,8 @@ class _Register extends State<PageOne> {
                   // ignore: prefer_const_constructors
                   decoration: InputDecoration(
                       labelText: 'Usename',
-                      labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                       helperText: 'Tyep you Usename for display',
                       hintText: 'Usename',
                       hintStyle:
@@ -156,7 +158,8 @@ class _Register extends State<PageOne> {
                   // ignore: prefer_const_constructors
                   decoration: InputDecoration(
                     labelText: 'password',
-                    labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                    labelStyle:
+                        TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     helperText: 'Tyep you password more 6 Charactor',
                     hintText: 'password',
                     hintStyle:
@@ -205,7 +208,8 @@ class _Register extends State<PageOne> {
                   // ignore: prefer_const_constructors
                   decoration: InputDecoration(
                     labelText: 'confirm password',
-                    labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                    labelStyle:
+                        TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     helperText: 'Tyep confirm password for display',
                     hintText: 'confirm password',
                     hintStyle:
@@ -237,107 +241,114 @@ class _Register extends State<PageOne> {
                 SizedBox(
                   height: 10,
                 ),
-                TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please fill you name in the blank';
-                    } else {
-                      return null;
-                    }
-                  },
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 17),
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) {
-                    print(value);
-                  },
-                  // ignore: prefer_const_constructors
-                  decoration: InputDecoration(
-                    labelText: 'name',
-                    labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                    helperText: 'Tyep you name for display',
-                    hintText: 'name',
-                    hintStyle:
-                        TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please fill you surname in the blank';
+                          } else {
+                            return null;
+                          }
+                        },
+                        // controller: surname,
+                        // readOnly: true,
+                        // onTap: () {
+                        //   // newDate();
+                        // },
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 0, 0, 0), fontSize: 17),
+                        keyboardType: TextInputType.text,
+                        onChanged: (value) {
+                          print(value);
+                        },
+                        // ignore: prefer_const_constructors
+                        decoration: InputDecoration(
+                          labelText: 'Name',
+                          labelStyle: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255)),
+                          helperText: 'Tyep you surname for display',
+                          hintText: 'Name',
+                          hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 240, 4, 4)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          prefixIcon: Icon(
+                            Icons.person,
+                            size: 30,
+                            color: Color.fromARGB(255, 255, 255, 255),
+                          ),
+                        ),
+                      ),
                     ),
-                    errorBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    prefixIcon: Icon(
-                      Icons.person,
-                      size: 30,
-                      color: Color.fromARGB(255, 255, 255, 255),
+                    const SizedBox(
+                      width: 20,
                     ),
-                  ),
+                    Expanded(
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please fill you name in the blank';
+                          } else {
+                            return null;
+                          }
+                        },
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            fontSize: 17),
+                        keyboardType: TextInputType.text,
+                        onChanged: (value) {
+                          print(value);
+                        },
+                        maxLines: 1,
+                        // ignore: prefer_const_constructors
+                        decoration: InputDecoration(
+                          labelText: 'Last name',
+                          labelStyle: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255)),
+                          helperText: 'Tyep you name for display',
+                          hintText: 'Last name',
+                          hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 240, 4, 4)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          prefixIcon: Icon(
+                            Icons.person,
+                            size: 30,
+                            color: Color.fromARGB(255, 255, 255, 255),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                // TextFormFieldModel(
-                //   labeltext: 'name',
-                //   controller: name,
-                // ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please fill you surname in the blank';
-                    } else {
-                      return null;
-                    }
-                  },
-                  // controller: surname,
-                  // readOnly: true,
-                  // onTap: () {
-                  //   // newDate();
-                  // },
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 17),
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) {
-                    print(value);
-                  },
-                  // ignore: prefer_const_constructors
-                  decoration: InputDecoration(
-                    labelText: 'surname',
-                    labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                    helperText: 'Tyep you surname for display',
-                    hintText: 'surname',
-                    hintStyle:
-                        TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color.fromARGB(255, 240, 4, 4)),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    prefixIcon: Icon(
-                      Icons.person,
-                      size: 30,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                    ),
-                  ),
-                ),
-
-                // TextFormFieldModel(
-                //   labeltext: 'surname',
-                //   controller: surname,
-                // ),
                 SizedBox(
                   height: 10,
                 ),
@@ -363,7 +374,8 @@ class _Register extends State<PageOne> {
                   // ignore: prefer_const_constructors
                   decoration: InputDecoration(
                     labelText: 'date',
-                    labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                    labelStyle:
+                        TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     helperText: 'Tyep you date for display',
                     hintText: 'date',
                     hintStyle:

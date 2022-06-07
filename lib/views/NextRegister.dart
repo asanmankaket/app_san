@@ -229,7 +229,9 @@ class _Register extends State<NextRegister> {
                 SizedBox(
                   height: 10,
                 ),
-                TextFormField(
+                Row(children: [
+                  Expanded(
+                        child:  TextFormField(
                   validator: (value) {
                     if (value!.length < 6) {
                       return 'กรุณาตรวจสอบตำเเหน่งของท่าน';
@@ -271,10 +273,12 @@ class _Register extends State<NextRegister> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: TextFormField(
                   validator: (value) {
                     if (value!.length < 6) {
                       return 'กรุณากรอกทักษะของท่านให้เรียบร้อย';
@@ -316,6 +320,8 @@ class _Register extends State<NextRegister> {
                     ),
                   ),
                 ),
+                      ),
+                ],),
                 SizedBox(
                   height: 10,
                 ),
